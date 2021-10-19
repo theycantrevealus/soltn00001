@@ -10,4 +10,7 @@ import 'primeng/resources/primeng.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.min.css'
 
-const app = createApp(App).use(store).use(router).mount('#app')
+createApp(App)
+  .use(store)
+  .use(router)
+  .mount('#app')

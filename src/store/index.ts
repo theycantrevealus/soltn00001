@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import PersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls'
+import { account } from '@/store/account'
 
 const ls = new SecureLS({ isCompression: false })
 
@@ -19,5 +20,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    storeAccount: account
   }
 })
