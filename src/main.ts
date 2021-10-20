@@ -1,13 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import PrimeVue from 'primevue/config'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
 import 'primevue/resources/themes/tailwind-light/theme.css'
 import 'primevue/resources/primevue.min.css'
-import 'primeng/resources/primeng.css'
+import 'primeng/resources/primeng.min.css'
 import 'primeicons/primeicons.css'
-import 'primeflex/primeflex.min.css'
+import 'primeflex/primeflex.css'
 
-const app = createApp(App).use(store).use(router).mount('#app')
+createApp(App)
+  .use(PrimeVue)
+  .use(store)
+  .use(router)
+  .mount('#app')
