@@ -1,27 +1,32 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import store from '@/store/index'
+import Builder from '@/views/Builder.vue'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Account/Login.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Builder',
+    component: Builder,
     meta: {
       requiresAuth: true
-    }
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    meta: {
-      requiresAuth: true
-    }
+    },
+    children: [
+      {
+        path: '/home',
+        name: 'Home',
+        component: Home
+      },
+      {
+        path: '/about',
+        name: 'About',
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      }
+    ]
   },
   {
     path: '/login',
@@ -36,7 +41,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthed = ((<any>store.state).mAccount.credential.token !== '' && (<any>store.state).mAccount.credential.token !== null && (<any>store.state).mAccount.credential.token !== undefined)
+  const isAuthed = ((<any>store.state).credential.token !== '' && (<any>store.state).credential.token !== null && (<any>store.state).credential.token !== undefined)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (isAuthed) {
       next()
@@ -45,7 +50,7 @@ router.beforeEach((to, from, next) => {
     next('/login')
   } else {
     if (isAuthed && to.matched.some(record => record.path === '/login')) {
-      next('/')
+      next('/home')
     } else {
       next()
     }

@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      sLogin: 'mAccount/LOGIN'
+      sLogin: 'LOGIN'
     }),
 
     login () {
@@ -83,9 +83,9 @@ export default {
         email: this.email,
         password: this.password
       }).then((response) => {
-        console.log(this.$store.state.mAccount.credential.isAuth)
+        console.log(this.$store.state.credential.isAuth)
         if (response.data.response_result > 0) {
-          this.$router.push('/')
+          this.$router.push('/home')
         }
       })
     }

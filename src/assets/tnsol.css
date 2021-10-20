@@ -1,0 +1,13 @@
+@font-face {
+    font-family: Poppins;
+    src: url("./font/poppins/Poppins-Regular.ttf");
+}
+
+body {
+    padding: 0 !important; margin: 0 !important;
+    font-family: Poppins, SansSerif, Arial !important;
+}
+
+.p-menubar {
+    padding: 0 1rem !important;
+}

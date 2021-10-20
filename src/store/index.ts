@@ -2,24 +2,43 @@ import { createStore } from 'vuex'
 import PersistedState from 'vuex-persistedstate'
 import SecureLS from 'secure-ls'
 import { account } from '@/store/account'
+import { TAccountLogin } from '@/model/Account'
+import AccountService from '@/service/account'
 
 const ls = new SecureLS({ isCompression: false })
-
 const store = createStore({
   state: {
+    credential: {
+      token: null
+    }
   },
   plugins: [PersistedState({
-    key: 'tn.sol.acc',
-    paths: ['tn.sol'],
     storage: {
       getItem: (key) => ls.get(key),
       setItem: (key, value) => ls.set(key, value),
       removeItem: (key) => ls.remove(key)
     }
   })],
-  mutations: {
-  },
   actions: {
+    LOGIN: ({ commit }: { commit:Function }, accountRequestData : TAccountLogin) => {
+      return AccountService.login(accountRequestData).then((response:any) => {
+        commit('LOGIN_SUCCESS', response.data.response_token)
+        return response
+      })
+    },
+    LOGOUT: ({ commit }: {commit: Function}) => {
+      commit('CLEAR_SESSION')
+    }
+  },
+  mutations: {
+    GET_TOKEN: (state) => state.credential.token,
+    LOGIN_SUCCESS (state:any, credentialData:string) : string {
+      state.credential.token = credentialData
+      return credentialData
+    },
+    CLEAR_SESSION (state: any) {
+      state.credential.token = null
+    }
   },
   modules: {
     mAccount: account
