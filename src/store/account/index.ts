@@ -1,9 +1,8 @@
 import AccountService from '../../service/account/index'
-import { IAccount, ILoginRequest } from '@/model/account/AccountResponse'
+import { TAccount, TAccountLogin } from '@/model/Account'
 const state: {} = {
   credential: {
-    data: {},
-    isAuth: false
+    token: localStorage.getItem('tn.sol.acc')
   }
 }
 export const account = {
@@ -15,15 +14,16 @@ export const account = {
     }
   },
   actions: {
-    LOGIN: ({ commit }: { commit:Function }, accountRequestData : ILoginRequest) => {
+    LOGIN: ({ commit }: { commit:Function }, accountRequestData : TAccountLogin) => {
       return AccountService.login(accountRequestData).then((response:any) => {
-        commit('LOGIn_SUCCESS', response)
+        commit('LOGIN_SUCCESS', response.data.response_token)
+        return response
       })
     }
   },
   mutations: {
-    LOGIN_SUCCESS (state:any, credentialData:IAccount) : IAccount {
-      state.credential.data = credentialData
+    LOGIN_SUCCESS (state:any, credentialData:TAccount) : TAccount {
+      state.credential.token = credentialData
       return credentialData
     }
   }

@@ -9,6 +9,8 @@ const store = createStore({
   state: {
   },
   plugins: [PersistedState({
+    key: 'tn.sol.acc',
+    paths: ['tn.sol'],
     storage: {
       getItem: (key) => ls.get(key),
       setItem: (key, value) => ls.set(key, value),

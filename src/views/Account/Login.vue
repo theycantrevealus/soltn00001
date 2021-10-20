@@ -1,7 +1,7 @@
 <template>
   <div class="p-grid">
     <div class="p-col-4 p-offset-4">
-      <form autocomplete="off" @submit.prevent="submitLogin">
+      <form autocomplete="off" @submit.prevent="login">
         <Card>
           <template #header>
             <h1 style="padding: 20px">Login</h1>
@@ -10,9 +10,9 @@
             <div class="p-fluid">
               <div class="p-field">
                 <label for="loginEmail">Email</label>
-                <InputText autocomplete="off" id="loginEmail" v-model.trim="$v.name.$model" />
-                <Message class="input-errors" v-if="$v.name.$errors.length > 0" :closable="false">
-                  <div class="error-msg" v-for="(error, index) of $v.name.$errors" :key="index">{{ error.$message }}</div>
+                <InputText autocomplete="off" id="loginEmail" v-model.trim="$v.email.$model" />
+                <Message class="input-errors" v-if="$v.email.$errors.length > 0" :closable="false">
+                  <div class="error-msg" v-for="(error, index) of $v.email.$errors" :key="index">{{ error.$message }}</div>
                 </Message>
               </div>
               <div class="p-field">
@@ -42,25 +42,24 @@ import InputText from 'primevue/inputtext'
 import Password from 'primevue/password'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   components: {
     Card, InputText, Password, Button, Message
-  },
-  mounted () {
-    console.log(this.$store.state.mAccount.credential.isAuth)
   },
   setup () {
     return { $v: useVuelidate() }
   },
   data () {
     return {
-      name: '',
+      email: '',
       password: ''
     }
   },
   validations: {
-    name: {
+    email: {
       required,
       name_validation: {
         $validator: validateEmail,
@@ -74,8 +73,21 @@ export default {
     }
   },
   methods: {
-    submitLogin: function () {
-      console.log('Log In')
+    ...mapActions({
+      sLogin: 'mAccount/LOGIN'
+    }),
+
+    login () {
+      return this.sLogin({
+        request: 'login',
+        email: this.email,
+        password: this.password
+      }).then((response) => {
+        console.log(this.$store.state.mAccount.credential.isAuth)
+        if (response.data.response_result > 0) {
+          this.$router.push('/')
+        }
+      })
     }
   }
 }

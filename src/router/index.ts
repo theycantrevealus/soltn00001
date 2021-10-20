@@ -36,7 +36,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const isAuthed = (<any>store.state).mAccount.credential.isAuth
+  const isAuthed = ((<any>store.state).mAccount.credential.token !== '' && (<any>store.state).mAccount.credential.token !== null && (<any>store.state).mAccount.credential.token !== undefined)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (isAuthed) {
       next()
@@ -45,11 +45,10 @@ router.beforeEach((to, from, next) => {
     next('/login')
   } else {
     if (isAuthed && to.matched.some(record => record.path === '/login')) {
-      next('/login')
-      return
+      next('/')
+    } else {
+      next()
     }
-
-    next()
   }
 })
 

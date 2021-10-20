@@ -1,13 +1,9 @@
 import axios from 'axios'
-import { ILoginRequest } from '@/model/account/AccountResponse'
+import { TAccountLogin } from '@/model/Account'
 
 class AccountService {
-  login (accountData: ILoginRequest) {
-    return axios.post(`${process.env.VUE_APP_APIGATEWAY}Pegawai`, {
-      request: 'login',
-      email: accountData.email,
-      password: accountData.password
-    })
+  login (accountData: TAccountLogin) {
+    return axios.post(`${process.env.VUE_APP_APIGATEWAY}Pegawai`, accountData)
       .then(response => {
         return Promise.resolve(response)
       })
