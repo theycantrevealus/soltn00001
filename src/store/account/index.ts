@@ -1,30 +1,28 @@
 import AccountService from '../../service/account/index'
 import { IAccount, ILoginRequest } from '@/model/account/AccountResponse'
+const state: {} = {
+  credential: {
+    data: {},
+    isAuth: false
+  }
+}
 export const account = {
   namespaced: true,
-  state: {
-    credential: {
-      data: {},
-      isAuth: false
-    }
-  },
+  state: state,
   getters: {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    getAuthenticated: (state) => {
+    getAuthenticated: (state:any) => {
       return state.credential
     }
   },
   actions: {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    LOGIN: ({ commit }, accountRequestData : ILoginRequest) => {
-      return AccountService.login(accountRequestData).then((response) => {
-        commit('LOGIN_SUCCESS', response)
+    LOGIN: ({ commit }: { commit:Function }, accountRequestData : ILoginRequest) => {
+      return AccountService.login(accountRequestData).then((response:any) => {
+        commit('LOGIn_SUCCESS', response)
       })
     }
   },
   mutations: {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    LOGIN_SUCCESS (state, credentialData:IAccount) : IAccount {
+    LOGIN_SUCCESS (state:any, credentialData:IAccount) : IAccount {
       state.credential.data = credentialData
       return credentialData
     }

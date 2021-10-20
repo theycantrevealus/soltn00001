@@ -47,6 +47,9 @@ export default {
   components: {
     Card, InputText, Password, Button, Message
   },
+  mounted () {
+    console.log(this.$store.state.mAccount.credential.isAuth)
+  },
   setup () {
     return { $v: useVuelidate() }
   },
