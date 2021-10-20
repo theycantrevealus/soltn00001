@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import store from '@/store/index'
 import Builder from '@/views/Builder.vue'
-import Home from '@/views/Home.vue'
 import Login from '@/views/Account/Login.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -16,14 +15,19 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/home',
         name: 'Home',
-        component: Home
+        meta: {
+          requiresAuth: true,
+          transitionName: 'slide'
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
       },
       {
         path: '/about',
         name: 'About',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          transitionName: 'slide'
         }
       }
     ]

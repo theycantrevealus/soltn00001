@@ -1,21 +1,25 @@
 <template>
-  <div>
+  <div class="main-container">
     <TopPanelBar />
-    <div id="nav">
-      <router-link to="/home">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <a href="#" @click="logout">Logout</a>
+    <div class="sidepanel">
+      <SidePanelBar />
     </div>
-    <router-view></router-view>
+    <div class="loadpanel">
+      <div class="wrapper">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import TopPanelBar from '@/components/TopPanelBar'
+import SidePanelBar from '@/components/SidePanelBar'
+
 export default {
   name: 'Builder',
   components: {
-    TopPanelBar
+    TopPanelBar, SidePanelBar
   }
+
 }
 </script>

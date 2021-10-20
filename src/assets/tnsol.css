@@ -3,11 +3,135 @@
     src: url("./font/poppins/Poppins-Regular.ttf");
 }
 
+@font-face {
+    font-family: Karla;
+    src: url("./font/karla/static/Karla-Regular.ttf");
+}
+
 body {
+    background: #42b883 !important;
     padding: 0 !important; margin: 0 !important;
-    font-family: Poppins, SansSerif, Arial !important;
+    font-family: Poppins, SansSerif, Arial, serif !important;
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+    transition-duration: 0.5s;
+    transition-property: height, opacity, transform;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+    overflow: hidden;
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+    opacity: 0;
+    transform: translate(2em, 0);
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+    opacity: 0;
+    transform: translate(-2em, 0);
+}
+
+
+
+
+
+
+
+
+.main-container {
+    position: absolute;
+    width: 100%; height: 100%;
+    left: 0; top: 0;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.loadpanel {
+    font-family: Karla, SansSerif, Arial, serif !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    width: 85%;
+    left:15%;
+    display: flex;
+    height: 100%;
+    padding: 20px;
+}
+
+.loadpanel .wrapper {
+    width: 100%;
+}
+
+.sidepanel {
+    position: absolute;
+    width: 15%;
+    left: 0;
+    padding-top: 20px;
+    height: 140%;
+    background: #003F49;
+}
+
+.sidepanel .p-component {
+    background: #003F49;
+    font-family: Poppins, SansSerif, Arial, serif !important;
+    font-size: 10pt !important;
+}
+
+.p-panelmenu .p-panelmenu-content {
+    background: #003F49;
+    border: none !important;
+}
+.p-panelmenu .p-panelmenu-header > a {
+    border: none !important;
+    color: #fff !important;
+    background: #003F49 !important;
+    border-radius: 0 !important;
+}
+
+.p-panelmenu .p-panelmenu-header.p-highlight > a {
+    color: #fff !important;
+    background: none !important;
+}
+
+.p-panelmenu .p-panelmenu-header > a {
+    color: #fff !important;
+    padding: 10px
+}
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text,
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-icon{
+    color: #fff !important;
+    letter-spacing: 1.2px;
+}
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
+    color: #fff !important;
+}
+.p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled) > a:hover {
+    background: #006474 !important;
+}
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
+    background: #006474 !important;
 }
 
 .p-menubar {
-    padding: 0 1rem !important;
+    background: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: .5rem 1rem !important;
+}
+
+.app-logo-container {
+    margin-right: 150px;
+}
+
+.app-logo-container img{
+    margin: 0 10px;
+    width: 20px;
+}
+
+.p-card .p-card-body {
 }
