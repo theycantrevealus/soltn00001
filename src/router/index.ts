@@ -16,8 +16,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/home',
         name: 'Home',
         meta: {
-          requiresAuth: true,
-          transitionName: 'slide'
+          requiresAuth: true
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
       },
@@ -26,8 +25,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'About',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
         meta: {
-          requiresAuth: true,
-          transitionName: 'slide'
+          requiresAuth: true
         }
       }
     ]

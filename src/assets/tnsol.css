@@ -76,6 +76,15 @@ body {
     background: #003F49;
 }
 
+.sidepanel hr {
+    border: solid 1px #42b883 !important;
+}
+
+.sidepanel h5 {
+    padding: 0px 20px !important;
+    color: #42b883 !important;
+}
+
 .sidepanel .p-component {
     background: #003F49;
     font-family: Poppins, SansSerif, Arial, serif !important;
@@ -106,9 +115,18 @@ body {
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-icon{
     color: #fff !important;
     letter-spacing: 1.2px;
+    font-size: 10pt !important;
+}
+.p-panelmenu .p-panelmenu-icon {
+    font-size: 10pt !important;
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link {
     color: #fff !important;
+    font-size: 10pt !important;
+    padding-top: 15px;
+}
+.p-panelmenu .p-panelmenu-header > a .p-menuitem-icon {
+    font-size: 10pt;
 }
 .p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled) > a:hover {
     background: #006474 !important;

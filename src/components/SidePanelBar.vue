@@ -1,5 +1,9 @@
 <template>
-  <PanelMenu :model="sidemenu" />
+  <h5>Menu</h5>
+  <PanelMenu :model="sidemenu1" />
+  <hr />
+  <h5>Setting</h5>
+  <PanelMenu :model="sidemenu2" />
 </template>
 <script>
 import PanelMenu from 'primevue/panelmenu'
@@ -22,36 +26,30 @@ export default {
   },
   data () {
     return {
-      sidemenu: [
+      sidemenu1: [
         {
-          label: 'File',
-          icon: 'pi pi-fw pi-file',
+          label: 'Home',
+          icon: 'pi pi-home pi-external-link',
+          to: '/home'
+        },
+        {
+          label: 'About',
+          icon: 'pi pi-info-circle pi-external-link',
+          to: '/about'
+        }
+      ],
+      sidemenu2: [
+        {
+          label: 'Account',
+          icon: 'pi pi-users pi-file',
           items: [
             {
-              label: 'New',
-              icon: 'pi pi-fw pi-plus',
-              items: [
-                {
-                  label: 'Bookmark',
-                  icon: 'pi pi-fw pi-bookmark'
-                },
-                {
-                  label: 'Video',
-                  icon: 'pi pi-fw pi-video'
-                }
-
-              ]
+              label: 'Account',
+              icon: 'pi pi-fw pi-user'
             },
             {
-              label: 'Delete',
-              icon: 'pi pi-fw pi-trash'
-            },
-            {
-              separator: true
-            },
-            {
-              label: 'Export',
-              icon: 'pi pi-fw pi-external-link'
+              label: 'Authority',
+              icon: 'pi pi-fw pi-lock-open'
             }
           ]
         }

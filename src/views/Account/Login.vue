@@ -11,20 +11,21 @@
               <div class="p-field">
                 <label for="loginEmail">Email</label>
                 <InputText autocomplete="off" id="loginEmail" v-model.trim="$v.email.$model" />
-                <Message class="input-errors" v-if="$v.email.$errors.length > 0" :closable="false">
+                <Message severity="error" v-if="$v.email.$errors.length > 0" :closable="false">
                   <div class="error-msg" v-for="(error, index) of $v.email.$errors" :key="index">{{ error.$message }}</div>
                 </Message>
               </div>
               <div class="p-field">
                 <label for="loginPassword">Password</label>
                 <Password type="password" id="loginPassword" placeholder="Password" v-model="$v.password.$model" />
-                <Message class="input-errors" v-if="$v.password.$errors.length > 0" :closable="false">
+                <Message severity="error" v-if="$v.password.$errors.length > 0" :closable="false">
                   <div class="error-msg" v-for="(error, index) of $v.password.$errors" :key="index">{{ error.$message }}</div>
                 </Message>
               </div>
             </div>
           </template>
           <template #footer>
+            <Message :severity="response.type" :closable="false" v-if="response.message !== ''">{{ response.message }}</Message>
             <Button type="submit" label="Login" icon="pi pi-check" :disabled="$v.$invalid" />
           </template>
         </Card>
@@ -55,7 +56,11 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      response: {
+        type: 'errors',
+        message: ''
+      }
     }
   },
   validations: {
@@ -86,6 +91,9 @@ export default {
         console.log(this.$store.state.credential.isAuth)
         if (response.data.response_result > 0) {
           this.$router.push('/home')
+        } else {
+          this.response.type = 'error'
+          this.response.message = response.data.response_message
         }
       })
     }
