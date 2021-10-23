@@ -69,11 +69,20 @@ body {
 
 .sidepanel {
     position: absolute;
-    width: 15%;
+    padding: 1%;
+    width: 13%;
     left: 0;
     padding-top: 20px;
     height: 140%;
     background: #003F49;
+    overflow-y: scroll;
+}
+
+.sidepanel .layout-menu li a {
+    color: #42b883 !important;
+}
+.sidepanel .layout-menu li .layout-menuitem-root-text {
+    color: #fff !important;
 }
 
 .sidepanel hr {

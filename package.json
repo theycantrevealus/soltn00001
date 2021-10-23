@@ -45,6 +45,7 @@
     "eslint-plugin-vue": "^7.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.4.0",
+    "material-icons": "^1.10.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^12.2.1",

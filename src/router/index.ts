@@ -11,6 +11,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true
     },
+    redirect: '/home',
     children: [
       {
         path: '/home',
@@ -24,6 +25,14 @@ const routes: Array<RouteRecordRaw> = [
         path: '/about',
         name: 'About',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/menu',
+        name: 'Menu',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Core/Menu.vue'),
         meta: {
           requiresAuth: true
         }
