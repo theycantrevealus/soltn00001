@@ -90,7 +90,7 @@ export default {
       }).then((response) => {
         console.log(this.$store.state.credential.isAuth)
         if (response.data.response_result > 0) {
-          this.$router.push('/home')
+          this.$router.push('/dashboard')
         } else {
           this.response.type = 'error'
           this.response.message = response.data.response_message

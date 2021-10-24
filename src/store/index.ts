@@ -8,6 +8,7 @@ import AccountService from '@/service/account'
 const ls = new SecureLS({ isCompression: false })
 const store = createStore({
   state: {
+    loading: 0,
     credential: {
       token: null
     }
@@ -31,6 +32,8 @@ const store = createStore({
     }
   },
   mutations: {
+    START_LOADING: state => state.loading++,
+    FINISH_LOADING: state => state.loading--,
     GET_TOKEN: (state) => state.credential.token,
     LOGIN_SUCCESS (state:any, credentialData:string) : string {
       state.credential.token = credentialData

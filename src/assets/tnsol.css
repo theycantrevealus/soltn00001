@@ -9,33 +9,45 @@
 }
 
 body {
-    background: #42b883 !important;
+    overflow: hidden;
+    background: #EEF8FA !important;
     padding: 0 !important; margin: 0 !important;
     font-family: Poppins, SansSerif, Arial, serif !important;
 }
 
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-    transition-duration: 0.5s;
-    transition-property: height, opacity, transform;
-    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-    overflow: hidden;
+#nprogress .bar {
+    position: fixed !important;
+    background: #42b883 !important;
+    height: 5px !important;
+    z-index: 2000 !important;
 }
 
-.slide-left-enter,
-.slide-right-leave-active {
+.router-link-active {
+    color: red;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+
+.fade-enter-from,
+.fade-leave-to {
     opacity: 0;
-    transform: translate(2em, 0);
 }
 
-.slide-left-leave-active,
-.slide-right-enter {
+.scale-enter-active,
+.scale-leave-active {
+    transition: all 0.2s ease;
+}
+
+
+.scale-enter-from,
+.scale-leave-to {
     opacity: 0;
-    transform: translate(-2em, 0);
+    transform: scale(0.9);
 }
-
 
 
 
@@ -51,38 +63,146 @@ body {
     overflow: hidden;
 }
 
+.topbar {
+    z-index: 1200;
+    position: fixed;
+    width: 87%;
+    left: 13%;
+    height: 60px;
+    /*background: #C7DEE1 !important;*/
+}
+
+.topbar .head_wrapper {
+    margin: 20px;
+    border-radius: 5px;
+    width: content-box;
+    background: #fff;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+}
+
+.topbar .p-menubar-start {
+    padding: 4px 10px 0 10px;
+    box-shadow: 3px 0 5px -2px rgba(0, 0, 0, .2);
+}
+
+.topbar .p-chip {
+    background: #fff;
+}
+.topbar .p-chip img {
+    width: 30px; height: 30px;
+}
+.topbar .p-chip .p-chip-text {
+    font-size: 10pt !important;
+}
+.topbar .p-menubar {
+    background: transparent;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1px !important;
+}
+
+.topbar .p-menuitem-link {
+    margin: 0 10px !important;
+    padding: 5px !important;
+}
+
+.topbar .p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
+    font-size: 7pt !important;
+}
+
+.topbar .p-menuitem-text {
+    font-size: 7pt !important;
+}
+
+.topbar .p-menuitem-icon {
+    font-size: 8pt !important;
+}
+.ps {
+    height: 100%;
+}
 .loadpanel {
     font-family: Karla, SansSerif, Arial, serif !important;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    position: absolute;
-    width: 85%;
-    left:15%;
-    display: flex;
+    overflow: hidden;
+    position: fixed;
+    z-index: 1000;
+    width: 87%;
+    left:13%;
     height: 100%;
-    padding: 20px;
 }
 
 .loadpanel .wrapper {
+    position: absolute;
+    top: 60px;
+    padding: 20px;
+    height: 1000px;
     width: 100%;
+    min-height: 1000px;
+}
+
+.breadcrumb-container {
+    margin-bottom: 0px;
+}
+
+.breadcrumb-container .p-breadcrumb {
+    background: none !important;
+    border: none !important;
+    padding: 0 1rem !important
+}
+
+.breadcrumb-container .p-menuitem-link span {
+    font-size: 10pt !important;
+    color: #003F49 !important
+}
+
+.breadcrumb-container .p-breadcrumb-chevron {
+    margin-top: 3px !important;
+    font-size: 5pt !important;
+    color: #003F49 !important
+}
+
+.breadcrumb-container .pageName {
+    font-family: Karla, SansSerif, Arial, serif !important;
+    font-size: 12pt !important;
+    font-weight: bolder;
+    border-right: solid 1px #808080;
+    padding: 0 20px !important;
+}
+
+.breadcrumb-container .pageName span {
+    color: #003F49;
 }
 
 .sidepanel {
+    z-index:1200;
     position: absolute;
-    padding: 1%;
+    box-shadow: 5px 0 5px -2px rgba(0, 0, 0, .2);
     width: 13%;
     left: 0;
-    padding-top: 20px;
     height: 140%;
     background: #003F49;
-    overflow-y: scroll;
 }
-
+.sidepanel .wrapper {
+    padding: 10px;
+}
+.layout-menu-container {
+    min-height: 1000px;
+}
+.sidepanel .panelLogo {
+    width: 140px;
+    height: 20px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+.sidepanel-container {
+    padding-bottom: 100px
+}
 .sidepanel .layout-menu li a {
-    color: #42b883 !important;
+    border-radius: 5px !important;
+    color: #ccc !important;
 }
 .sidepanel .layout-menu li .layout-menuitem-root-text {
     color: #fff !important;
+    letter-spacing: 2px;
 }
 
 .sidepanel hr {
@@ -90,7 +210,7 @@ body {
 }
 
 .sidepanel h5 {
-    padding: 0px 20px !important;
+    padding: 0 20px !important;
     color: #42b883 !important;
 }
 
@@ -98,6 +218,42 @@ body {
     background: #003F49;
     font-family: Poppins, SansSerif, Arial, serif !important;
     font-size: 10pt !important;
+}
+
+.layout-menu li {
+    margin: 5px 0;
+}
+
+.layout-menu li a {
+    padding: 1px !important;
+}
+
+.layout-menu li a:hover {
+    font-weight: bolder;
+    background: transparent;
+}
+
+.layout-menuitem-root-text {
+    font-size: 8pt !important;
+}
+
+.layout-menu li span.caption {
+    padding-top: 6px;
+}
+
+.layout-menu li span {
+    font-size: 8pt !important;
+    padding-top: 3px;
+    letter-spacing: 1px
+}
+
+.layout-menu li span.material-icons {
+    font-size: 10pt !important;
+}
+
+.layout-menu li a.router-link-exact-active {
+    box-shadow: 3px 3px 7px #00292F,
+    -3px -3px 7px #015A68;
 }
 
 .p-panelmenu .p-panelmenu-content {
@@ -120,12 +276,6 @@ body {
     color: #fff !important;
     padding: 10px
 }
-.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text,
-.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-icon{
-    color: #fff !important;
-    letter-spacing: 1.2px;
-    font-size: 10pt !important;
-}
 .p-panelmenu .p-panelmenu-icon {
     font-size: 10pt !important;
 }
@@ -144,13 +294,6 @@ body {
     background: #006474 !important;
 }
 
-.p-menubar {
-    background: #fff !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: .5rem 1rem !important;
-}
-
 .app-logo-container {
     margin-right: 150px;
 }
@@ -160,5 +303,24 @@ body {
     width: 20px;
 }
 
+.p-card {
+    border-radius: 5px !important;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1) !important;
+}
+.p-card-title {
+    font-family: Karla, SansSerif, Arial, serif !important;
+    font-size: 11pt !important;
+}
 .p-card .p-card-body {
+    border-radius: 0 !important;
+    font-family: Karla, SansSerif, Arial, serif !important;
+}
+
+
+.handling_container {
+    overflow: hidden;
+}
+.handling_image {
+    margin-top: 50px;
+    width: 80% !important;
 }

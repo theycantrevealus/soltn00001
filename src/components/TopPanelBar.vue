@@ -1,23 +1,25 @@
 <template>
-  <Menubar :model="items">
-    <template #start>
-      <div class="app-logo-container">
-        <img alt="Vue logo" src="../assets/logo.png"><b>SOL-TN-00001</b>
-      </div>
-    </template>
-    <template #end>
-      <Button @click="logout" icon="pi pi-power-off" class="p-button-link p-button-sm" />
-    </template>
-  </Menubar>
+  <div class="head_wrapper">
+    <Menubar :model="items">
+      <template #start>
+        <Chip label="takashitanaka_" :image="require('@/assets/images/profile.png')" />
+      </template>
+      <template #end>
+        <Button @click="logout" icon="pi pi-power-off" class="p-button-link p-button-sm" />
+      </template>
+    </Menubar>
+  </div>
 </template>
 <script>
 import Menubar from 'primevue/menubar'
 import Button from 'primevue/button'
+import Avatar from 'primevue/avatar'
+import Chip from 'primevue/chip'
 import { mapActions } from 'vuex'
 export default {
   name: 'TopPanelMenu',
   components: {
-    Menubar, Button
+    Menubar, Button, Chip
   },
   methods: {
     ...mapActions({

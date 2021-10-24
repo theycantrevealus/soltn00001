@@ -1,13 +1,31 @@
 <template>
   <div className="main-container">
-    <TopPanelBar/>
+    <div class="topbar">
+      <TopPanelBar/>
+    </div>
     <div className="sidepanel">
-      <SidePanelBar />
+      <div class="wrapper">
+        <img class="panelLogo" :src="require('../assets/logo.svg')"  alt="SolTN00001"/>
+      </div>
+      <perfect-scrollbar>
+        <div class="wrapper">
+          <SidePanelBar />
+        </div>
+      </perfect-scrollbar>
     </div>
     <div className="loadpanel">
-      <div className="wrapper">
-        <router-view></router-view>
-      </div>
+      <perfect-scrollbar>
+        <div className="wrapper">
+          <div class="breadcrumb-container">
+            <BreadCrumb :items="breadcrumb" :pageName="pageName" />
+          </div>
+          <router-view v-slot="{ Component }">
+            <transition name="scale" mode="out-in">
+            <component :is="Component" />
+            </transition>
+          </router-view>
+        </div>
+      </perfect-scrollbar>
     </div>
   </div>
 </template>
@@ -15,9 +33,19 @@
 import '@/assets/sakai/layout.scss'
 import TopPanelBar from '@/components/TopPanelBar'
 import SidePanelBar from '@/components/SidePanelBar'
+import BreadCrumb from '@/components/BreadCrumb'
 
 export default {
   name: 'Builder',
+  watch: {
+    '$route' () {
+      this.breadcrumb = this.$route.meta.breadcrumb
+      this.pageName = this.$route.name
+    }
+  },
+  mounted () {
+    this.updatePageInfo()
+  },
   data () {
     return {
       layoutMode: 'static',
@@ -25,10 +53,16 @@ export default {
       staticMenuInactive: false,
       overlayMenuActive: false,
       mobileMenuActive: false,
-      menu: []
+      menu: [],
+      breadcrumb: [],
+      pageName: ''
     }
   },
   methods: {
+    updatePageInfo () {
+      this.breadcrumb = this.$route.meta.breadcrumb
+      this.pageName = this.$route.name
+    },
     onWrapperClick () {
       if (!this.menuClick) {
         this.overlayMenuActive = false
@@ -127,7 +161,8 @@ export default {
   },
   components: {
     TopPanelBar,
-    SidePanelBar
+    SidePanelBar,
+    BreadCrumb
   }
 
 }
