@@ -1,5 +1,7 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <router-view/>
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition name="scale" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>

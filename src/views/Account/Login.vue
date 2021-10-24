@@ -1,6 +1,6 @@
 <template>
   <div class="p-grid">
-    <div class="p-col-4 p-offset-4">
+    <div class="p-col-4 p-offset-4" style="margin-top: 50px">
       <form autocomplete="off" @submit.prevent="login">
         <Card>
           <template #header>
@@ -27,6 +27,7 @@
           <template #footer>
             <Message :severity="response.type" :closable="false" v-if="response.message !== ''">{{ response.message }}</Message>
             <Button type="submit" label="Login" icon="pi pi-check" :disabled="$v.$invalid" />
+            <p style="padding: 20px">"Dimana-mana masuk sistem itu login lae. Maka dari itu login kau, unang mangalo"<br /><b>Tanaka, 2021</b></p>
           </template>
         </Card>
       </form>
