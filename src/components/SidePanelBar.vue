@@ -1,25 +1,34 @@
 <template>
   <div class="sidepanel-container">
     <div class="layout-menu-container">
-      <SideMenuAutoGen :items="sidemenu3" class="layout-menu" :root="true" @menuitem-click="onMenuItemClick" />
+      <SideMenuAutoGen :items="getSideMenu" class="layout-menu" :root="true" @menuitem-click="onMenuItemClick" />
     </div>
   </div>
 </template>
 <script>
 import SideMenuAutoGen from './SideMenuAutoGen'
+import { mapActions, mapGetters } from 'vuex'
 
-import { mapActions } from 'vuex'
 export default {
   name: 'SidePanelMenu',
   components: {
     SideMenuAutoGen
   },
+  mounted () {
+    this.rebuildMenu()
+  },
   props: {
     model: Array
   },
+  computed: {
+    ...mapGetters({
+      getSideMenu: 'getSideMenu'
+    })
+  },
   methods: {
     ...mapActions({
-      sLogout: 'LOGOUT'
+      sLogout: 'LOGOUT',
+      rebuildMenu: 'UPDATE_MENU'
     }),
     logout () {
       this.sLogout().then(() => {

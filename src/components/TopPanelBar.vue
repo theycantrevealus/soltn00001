@@ -2,7 +2,7 @@
   <div class="head_wrapper">
     <Menubar :model="items">
       <template #start>
-        <Chip label="takashitanaka_" :image="require('@/assets/images/profile.png')" />
+        <Chip :label="first_name + ' ' + last_name" :image="require('@/assets/images/profile.png')" />
       </template>
       <template #end>
         <Button @click="logout" icon="pi pi-power-off" class="p-button-link p-button-sm" />
@@ -13,13 +13,20 @@
 <script>
 import Menubar from 'primevue/menubar'
 import Button from 'primevue/button'
-import Avatar from 'primevue/avatar'
 import Chip from 'primevue/chip'
 import { mapActions } from 'vuex'
 export default {
   name: 'TopPanelMenu',
   components: {
     Menubar, Button, Chip
+  },
+  computed: {
+    first_name () {
+      return this.$store.state.credential.first_name
+    },
+    last_name () {
+      return this.$store.state.credential.last_name
+    }
   },
   methods: {
     ...mapActions({

@@ -89,12 +89,11 @@ export default {
         email: this.email,
         password: this.password
       }).then((response) => {
-        console.log(this.$store.state.credential.isAuth)
-        if (response.data.response_result > 0) {
+        if (response.response_result > 0) {
           this.$router.push('/dashboard')
         } else {
           this.response.type = 'error'
-          this.response.message = response.data.response_message
+          this.response.message = response.response_message
         }
       })
     }
