@@ -5,6 +5,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import PerfectScrollbar from 'vue3-perfect-scrollbar'
+import setupInterceptors from '@/service/core/interceptor'
 import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css'
 
 import 'primevue/resources/themes/tailwind-light/theme.css'
@@ -12,12 +13,19 @@ import 'primevue/resources/primevue.min.css'
 import 'primeng/resources/primeng.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
+import ToastService from 'primevue/toastservice'
 import 'material-icons/iconfont/material-icons.css'
 import '@/assets/tnsol.css'
+import '@/assets/style/table.css'
+import '@/assets/style/modal.css'
 import 'nprogress/nprogress.css'
+
+setupInterceptors()
+
 createApp(App)
   .use(PrimeVue)
   .use(store)
   .use(router)
+  .use(ToastService)
   .use(PerfectScrollbar)
   .mount('#app')

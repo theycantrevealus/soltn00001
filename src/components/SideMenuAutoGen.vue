@@ -1,7 +1,7 @@
 <template>
   <ul v-if="items">
     <template v-for="(item,i) of items">
-      <li v-if="visible(item) && !item.separator" :key="item.label || i" :class="[{'layout-menuitem-category': root, 'sol-active-menuitem': activeIndex === i && !item.to && !item.disabled}]" role="none">
+      <li v-if="visible(item) && !item.separator && item.show_on_menu === 'Y'" :key="item.label || i" :class="[{'layout-menuitem-category': root, 'sol-active-menuitem': activeIndex === i && !item.to && !item.disabled}]" role="none">
         <template v-if="root">
           <div class="layout-menuitem-root-text">{{item.label}}</div>
           <SideMenuAutoGen :items="visible(item) && item.items" @menuitem-click="$emit('menuitem-click', $event)"></SideMenuAutoGen>
@@ -9,14 +9,14 @@
         <template v-else>
           <router-link v-if="item.to" :to="item.to" :class="[item.class, {'p-disabled': item.disabled}]" :style="item.style" @click="onMenuItemClick($event,item,i)" :target="item.target" exact role="menuitem">
             <!--i :class="item.icon"></i-->
-            <span class="material-icons">{{ item.icon }}</span>
+            <span class="material-icons-outlined">{{ item.icon }}</span>
             <span class="caption">{{item.label}}</span>
             <!--i v-if="item.items" class="pi pi-fw pi-angle-down menuitem-toggle-icon"></i-->
             <span v-if="item.items" class="material-icons menuitem-toggle-icon">keyboard_arrow_down</span>
             <span v-if="item.badge" class="menuitem-badge">{{item.badge}}</span>
           </router-link>
           <a v-if="!item.to" :href="item.url||'#'" :style="item.style" :class="[item.class, {'p-disabled': item.disabled}]" @click="onMenuItemClick($event,item,i)" :target="item.target" role="menuitem">
-            <span class="material-icons">{{ item.icon }}</span>
+            <span class="material-icons-outlined">{{ item.icon }}</span>
             <span>{{item.label}}</span>
             <span v-if="item.items" class="material-icons menuitem-toggle-icon">keyboard_arrow_down</span>
             <span v-if="item.badge" class="menuitem-badge">{{item.badge}}</span>
