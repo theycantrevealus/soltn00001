@@ -34,6 +34,7 @@ export default {
     }),
     logout () {
       this.sLogout().then(() => {
+        console.log('KELUAR')
         this.$router.push('/login')
       })
     }

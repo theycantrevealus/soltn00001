@@ -40,7 +40,7 @@ export default {
   watch: {
     '$route' () {
       this.breadcrumb = this.$route.meta.breadcrumb
-      this.pageName = this.$route.name
+      this.pageName = this.$route.meta.pageTitle
     }
   },
   mounted () {

@@ -20,6 +20,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/dashboard',
         name: 'Dashboard',
         meta: {
+          pageTitle: 'Dashboard',
           requiresAuth: true
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
@@ -29,6 +30,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'About',
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
         meta: {
+          pageTitle: 'About',
           requiresAuth: true,
           breadcrumb: [
             {
@@ -46,6 +48,7 @@ const routes: Array<RouteRecordRaw> = [
             path: 'menu',
             name: 'Menu',
             meta: {
+              pageTitle: 'Menu Management',
               requiresAuth: true,
               breadcrumb: [
                 {
