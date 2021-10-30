@@ -23,6 +23,11 @@
                 <InputText type="text" v-model="filtersNode['to']" class="p-column-filter" placeholder="Filter by link" />
               </template>
             </Column>
+            <Column field="show_on_menu" header="Visibility">
+              <template #filter>
+                <InputText type="text" v-model="filtersNode['show_on_menu']" class="p-column-filter" placeholder="Filter by visibility" />
+              </template>
+            </Column>
             <Column headerStyle="width: auto" bodyStyle="text-align: center">
               <template #header>
                 Action
@@ -32,7 +37,7 @@
                   <Button @click="onNodeAdd({ id: slotProps.node.data.id, label: slotProps.node.data.label, key: slotProps.node.key }, 'Add Child Menu')" type="button" class="p-button-success p-button-raised p-button-sm">
                     <span class="material-icons">add</span>
                   </Button>
-                  <Button type="button" class="p-button-info p-button-raised p-button-sm">
+                  <Button @click="onNodeEdit(slotProps.node, 'Edit Child Menu')" type="button" class="p-button-info p-button-raised p-button-sm">
                     <span class="material-icons">edit</span>
                   </Button>
                   <Button @click="onNodeDelete(slotProps.node.data.id)" type="button" class="p-button-danger p-button-raised p-button-sm">
@@ -78,7 +83,7 @@
           <Button @click="toggleModal" class="p-button-text p-button-sm">
             <span class="material-icons">highlight_off</span> Cancel
           </Button>
-          <Button class="p-button-sm" @click="addMenu" autofocus>
+          <Button class="p-button-sm" @click="processForm" autofocus>
             <span class="material-icons">task_alt</span> Submit
           </Button>
         </template>
@@ -109,6 +114,7 @@ export default defineComponent({
   },
   data () {
     return {
+      formMode: 'add',
       form: {
         targetGroup: 0,
         targetID: 0,
@@ -176,7 +182,6 @@ export default defineComponent({
         id: target
       }).then((response: any) => {
         response = response.data.response_package
-        console.log(response)
         if (response.response_result > 0) {
           this.$toast.add({ severity: 'success', summary: 'Menu Manager', detail: response.response_message, life: 3000 })
           this.reloadMenu()
@@ -184,8 +189,20 @@ export default defineComponent({
         }
       })
     },
+    onNodeEdit (target:any, mode: string) {
+      const data = target.data
+      this.form.targetID = data.id
+      this.form.txt_label = data.label
+      this.form.txt_route = data.to
+      this.form.txt_icon = data.icon
+      this.form.showMenu = (target.show_on_menu === 'Y')
+      this.formMode = 'edit'
+      this.ui.modal.manageMenu.title = `${mode}  ${data.label}`
+      this.toggleModal()
+    },
     onNodeAdd (target:any, mode: string) {
       const checkLevel = target.key.split('-')
+      this.formMode = 'add'
       if (checkLevel.length > 1) {
         this.form.targetGroup = checkLevel[0]
         this.form.targetID = target.id
@@ -196,6 +213,42 @@ export default defineComponent({
 
       this.ui.modal.manageMenu.title = `${mode}  ${target.label}`
       this.toggleModal()
+    },
+    editMenu () {
+      const label = this.form.txt_label
+      const routeTo = this.form.txt_route
+      const icon = this.form.txt_icon
+      const showMenu = (this.form.showMenu) ? 'Y' : 'N'
+
+      return CoreService.menuEdit({
+        request: 'update_menu',
+        id: this.form.targetID,
+        caption: label,
+        grouper: this.form.targetGroup,
+        targetLink: routeTo,
+        remark: '',
+        parent: this.form.targetID,
+        icon: icon,
+        showOnMenu: showMenu
+      }).then((response: any) => {
+        console.clear()
+        console.log(response)
+        response = response.data.response_package
+        if (response.response_result > 0) {
+          this.reloadMenu()
+          this.rebuildMenu()
+          this.clearForm()
+          this.ui.modal.manageMenu.state = false
+          this.$toast.add({ severity: 'success', summary: 'Menu Manager', detail: response.response_message, life: 3000 })
+        }
+      })
+    },
+    processForm () {
+      if (this.formMode === 'add') {
+        this.addMenu()
+      } else {
+        this.editMenu()
+      }
     },
     addMenu () {
       const label = this.form.txt_label

@@ -20,6 +20,13 @@ import '@/assets/style/table.css'
 import '@/assets/style/modal.css'
 import 'nprogress/nprogress.css'
 
+// Modular
+import { registerModules } from '@/modules/register'
+import User from '@/modules/user'
+registerModules({
+  userModule: User
+})
+
 setupInterceptors()
 
 createApp(App)

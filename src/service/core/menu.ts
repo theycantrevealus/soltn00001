@@ -8,6 +8,15 @@ class CoreService {
       })
   }
 
+  menuEdit (menuData: any) {
+    return axios.put(`${process.env.VUE_APP_APIGATEWAY}Core`, {
+      data: menuData
+    })
+      .then(response => {
+        return Promise.resolve(response)
+      })
+  }
+
   menuDelete (menuData: any) {
     return axios.delete(`${process.env.VUE_APP_APIGATEWAY}Core`, {
       data: menuData
