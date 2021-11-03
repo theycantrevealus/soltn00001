@@ -77,7 +77,6 @@ body {
     border-radius: 5px;
     width: content-box;
     background: #fff;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
 }
 
 .topbar .p-menubar-start {
@@ -170,6 +169,7 @@ body {
 
 .breadcrumb-container .pageName span {
     color: #003F49;
+    font-size: 10pt !important;
 }
 
 .sidepanel {
@@ -179,7 +179,7 @@ body {
     width: 13%;
     left: 0;
     height: 140%;
-    background: #003F49;
+    background: #fff;
 }
 .sidepanel .wrapper {
     padding: 10px;
@@ -198,10 +198,10 @@ body {
 }
 .sidepanel .layout-menu li a {
     border-radius: 5px !important;
-    color: #ccc !important;
+    color: #606060 !important;
 }
 .sidepanel .layout-menu li .layout-menuitem-root-text {
-    color: #fff !important;
+    color: #007cffff !important;
     letter-spacing: 2px;
 }
 
@@ -238,12 +238,11 @@ body {
 }
 
 .layout-menu li span.caption {
-    padding-top: 6px;
+    padding: 6px 0px 3px 0px;
 }
 
 .layout-menu li span {
     font-size: 8pt !important;
-    padding-top: 3px;
     letter-spacing: 1px
 }
 
@@ -252,8 +251,9 @@ body {
 }
 
 .layout-menu li a.router-link-exact-active {
-    box-shadow: 3px 3px 7px #00292F,
-    -3px -3px 7px #015A68;
+    font-weight: bolder !important;
+    background: #00b600ff !important;
+    color: #fff !important;
 }
 
 .p-panelmenu .p-panelmenu-content {
@@ -304,9 +304,22 @@ body {
 }
 
 .p-card {
-    border-radius: 5px !important;
-    box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1) !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
 }
+
+.p-card.card-fluid {
+    padding: 0 !important;
+}
+
+.p-card.card-fluid .p-card-body {
+    padding: 0 !important;
+}
+
+.p-card.card-fluid .p-card-content {
+    padding: 0 !important;
+}
+
 .p-card-title {
     font-family: Karla, SansSerif, Arial, serif !important;
     font-size: 11pt !important;
@@ -341,4 +354,11 @@ body {
 .p-toast-message-text {
     font-family: Karla, SansSerif, Arial, serif !important;
     font-size: 10pt !important;
+}
+
+
+.wrap_content {
+    word-wrap: break-word !important;
+    width: 1%;
+    white-space:nowrap;
 }

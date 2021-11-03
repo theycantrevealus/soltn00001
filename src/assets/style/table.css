@@ -73,3 +73,57 @@ tbody.p-treetable-tbody tr td .p-buttonset button span {
 .p-paginator .p-paginator-page {
     font-size: 8pt !important;
 }
+
+
+
+
+
+
+/*=================================== DATATABLE =====================================*/
+.p-datatable-table {
+    font-family: Karla, SansSerif, Arial, serif !important;
+}
+
+.p-datatable-table thead tr th, .p-datatable-table thead tr th.p-filter-column {
+    padding: 7px 1.5rem !important;
+    font-size: 10pt !important;
+}
+
+.p-column-filter-menu-button {
+    width: 20px !important; height: 20px !important;
+}
+
+.p-datatable-table thead tr th.p-filter-column .p-column-filter {
+    padding: 0 !important;
+}
+
+.p-datatable-table thead tr th.p-filter-column .p-column-filter input {
+    padding: 5px 10px !important;
+}
+
+.p-datatable-table thead tr th.p-filter-column .p-column-filter .p-link {
+    padding: 0 !important;
+}
+
+.p-datatable-table thead tr th.p-filter-column .p-column-filter .p-link .pi {
+    font-size: 6pt !important;
+}
+
+.p-datatable-table thead tr th .p-sortable-column-icon {
+    font-size: 6pt !important;
+}
+
+.p-datatable-table tbody tr td {
+    padding: 5px 1.5rem !important;
+    font-size: 10pt !important;
+}
+
+.p-datatable-table tbody tr td button.p-button {
+    font-size: 7pt !important;
+    padding: 5px !important;
+}
+
+.p-datatable-table tbody tr td button.p-button span.material-icons {
+    font-size: 8pt !important;
+    margin: 0 4px;
+}

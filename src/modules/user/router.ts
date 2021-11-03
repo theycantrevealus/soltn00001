@@ -1,22 +1,24 @@
-
-import { RouteRecordRaw } from 'vue-router'
-const Module = () => import('@/modules/user/Module.vue')
-const Index = () => import('@/modules/user/views/Index.vue')
-const Add = () => import('@/modules/user/views/Add.vue')
-const Edit = () => import('@/modules/user/views/Edit.vue')
-const moduleRoute:Array<RouteRecordRaw> = [{
+const moduleRoute = [{
   path: '/user',
   name: 'User',
-  component: Module,
+  component: () => import(/* webpackChunkName: "user" */ '../user/Module.vue'),
   meta: {
-    requiresAuth: true
+    pageTitle: 'User Management Builder',
+    requiresAuth: true,
+    breadcrumb: [
+      {
+        label: 'User',
+        to: '/user'
+      }
+    ]
   },
   children: [
     {
-      path: '/user',
+      path: 'list',
       name: 'UserList',
       meta: {
         pageTitle: 'User Management',
+        requiresAuth: true,
         breadcrumb: [
           {
             label: 'User',
@@ -24,13 +26,14 @@ const moduleRoute:Array<RouteRecordRaw> = [{
           }
         ]
       },
-      component: Index
+      component: () => import(/* webpackChunkName: "user" */ '../user/views/Index.vue')
     },
     {
-      path: '/add',
+      path: 'add',
       name: 'UserAdd',
       meta: {
         pageTitle: 'User Add',
+        requiresAuth: true,
         breadcrumb: [
           {
             label: 'User',
@@ -38,13 +41,14 @@ const moduleRoute:Array<RouteRecordRaw> = [{
           }
         ]
       },
-      component: Add
+      component: () => import(/* webpackChunkName: "user" */ '@/modules/user/views/Add.vue')
     },
     {
-      path: '/edit/:uid',
+      path: 'edit/:uid',
       name: 'UserEdit',
       meta: {
         pageTitle: 'User Edit',
+        requiresAuth: true,
         breadcrumb: [
           {
             label: 'User',
@@ -52,10 +56,9 @@ const moduleRoute:Array<RouteRecordRaw> = [{
           }
         ]
       },
-      component: Edit
+      component: () => import(/* webpackChunkName: "user" */ '@/modules/user/views/Edit.vue')
     }
   ]
 }]
-export default router => {
-  router.addRoute('Builder', moduleRoute[0])
-}
+
+export default moduleRoute

@@ -5,7 +5,9 @@ import Login from '@/views/Account/Login.vue'
 import PageNotFound from '@/views/Handling/404.vue'
 
 const NProgress = require('nprogress')
-
+const ItWorks = {
+  template: '<div>It works!</div>'
+}
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -17,18 +19,17 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/dashboard',
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
         name: 'Dashboard',
         meta: {
           pageTitle: 'Dashboard',
           requiresAuth: true
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
       },
       {
-        path: '/about',
+        path: 'about',
         name: 'About',
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
         meta: {
           pageTitle: 'About',
           requiresAuth: true,
@@ -38,7 +39,8 @@ const routes: Array<RouteRecordRaw> = [
               to: '/about'
             }
           ]
-        }
+        },
+        component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
       },
       {
         path: '/core',
@@ -53,14 +55,14 @@ const routes: Array<RouteRecordRaw> = [
               breadcrumb: [
                 {
                   label: 'Menu',
-                  to: '/core/menu'
+                  to: 'menu'
                 }
               ]
             },
-            component: () => import(/* webpackChunkName: "about" */ '../views/Core/Menu.vue')
+            component: () => import(/* webpackChunkName: "menu.list" */ '@/views/Core/Menu.vue')
           }
         ],
-        component: () => import(/* webpackChunkName: "about" */ '../views/Core/Index.vue')
+        component: () => import(/* webpackChunkName: "menu" */ '@/views/Core/Index.vue')
       }
     ]
   },
