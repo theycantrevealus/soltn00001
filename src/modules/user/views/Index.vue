@@ -21,10 +21,13 @@
             <template #body="slotProps">
           <span class="p-buttonset wrap_content">
             <Button @click="userEdit(slotProps.data.uid)" class="p-button p-button-info p-button-sm p-button-raised">
-              <span class="material-icons">edit</span> Edit
+              <span class="material-icons">edit</span>
+            </Button>
+            <Button @click="userResetPass(slotProps.data.uid)" class="p-button p-button-warning p-button-sm p-button-raised">
+              <span class="material-icons">refresh</span>
             </Button>
             <Button @click="userDelete($event, slotProps.data.uid)" class="p-button p-button-danger p-button-sm p-button-raised">
-              <span class="material-icons">delete</span> Delete
+              <span class="material-icons">delete</span>
             </Button>
           </span>
             </template>

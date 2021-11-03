@@ -5,9 +5,6 @@ import Login from '@/views/Account/Login.vue'
 import PageNotFound from '@/views/Handling/404.vue'
 
 const NProgress = require('nprogress')
-const ItWorks = {
-  template: '<div>It works!</div>'
-}
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
