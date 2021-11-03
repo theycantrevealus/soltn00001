@@ -190,8 +190,8 @@ body {
 .sidepanel .panelLogo {
     width: 140px;
     height: 20px;
-    margin-bottom: 20px;
-    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-top: 15px;
 }
 .sidepanel-container {
     padding-bottom: 100px
@@ -200,9 +200,20 @@ body {
     border-radius: 5px !important;
     color: #606060 !important;
 }
+
+.sidepanel .layout-menu li a .material-icons, .material-icons-outlined {
+    color: #00b600ff !important;
+}
+
+.sidepanel .layout-menu li:first-child .layout-menuitem-root-text {
+    margin-top: 0px;
+}
 .sidepanel .layout-menu li .layout-menuitem-root-text {
     color: #007cffff !important;
     letter-spacing: 2px;
+    font-size: 6pt !important;
+    border-bottom: solid .5px #007cffff;
+    margin-top: 40px;
 }
 
 .sidepanel hr {
@@ -252,8 +263,8 @@ body {
 
 .layout-menu li a.router-link-exact-active {
     font-weight: bolder !important;
-    background: #00b600ff !important;
-    color: #fff !important;
+    background: #E8FFEB !important;
+    color: #000 !important;
 }
 
 .p-panelmenu .p-panelmenu-content {
