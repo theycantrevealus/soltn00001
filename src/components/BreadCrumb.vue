@@ -20,7 +20,7 @@ export default {
   },
   data () {
     return {
-      home: { icon: 'pi pi-home', to: '/home' }
+      home: { icon: 'pi pi-home', to: '/dashboard' }
     }
   },
   components: {

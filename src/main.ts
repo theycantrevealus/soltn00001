@@ -10,12 +10,16 @@ import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css'
 
 import 'primevue/resources/themes/tailwind-light/theme.css'
 import 'primevue/resources/primevue.min.css'
-import 'primeng/resources/primeng.min.css'
+
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
+import 'primeng/resources/primeng.min.css'
 import ToastService from 'primevue/toastservice'
+import ConfirmationService from 'primevue/confirmationservice'
 import 'material-icons/iconfont/material-icons.css'
 import '@/assets/tnsol.css'
+import '@/assets/style/popconfirm.css'
+import '@/assets/style/toolbar.css'
 import '@/assets/style/table.css'
 import '@/assets/style/modal.css'
 import 'nprogress/nprogress.css'
@@ -24,7 +28,7 @@ import 'nprogress/nprogress.css'
 import { registerModules } from '@/modules/register'
 import User from '@/modules/user'
 registerModules({
-  userModule: User
+  accountModule: User
 })
 
 setupInterceptors()
@@ -34,5 +38,6 @@ createApp(App)
   .use(store)
   .use(router)
   .use(ToastService)
+  .use(ConfirmationService)
   .use(PerfectScrollbar)
   .mount('#app')

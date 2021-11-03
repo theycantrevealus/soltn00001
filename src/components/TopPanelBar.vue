@@ -98,7 +98,7 @@ export default {
             {
               label: 'Home',
               icon: 'pi pi-fw pi-trash',
-              to: '/home'
+              to: '/dashboard'
             },
             {
               separator: true
