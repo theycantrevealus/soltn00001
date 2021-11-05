@@ -4,7 +4,7 @@
       <template #header>
         <Toolbar>
           <template #left>
-            <Button label="New" icon="pi pi-plus" class="p-mr-2 p-button-rounded" />
+            <Button label="New" @click="userAdd" icon="pi pi-plus" class="p-mr-2 p-button-rounded" />
           </template>
 
           <template #right>
@@ -117,8 +117,14 @@ export default {
     this.loadLazyData()
   },
   methods: {
+    userAdd () {
+      this.$router.push('/user/add')
+    },
+    userEdit (uid) {
+      this.$router.push(`/user/edit/${uid}`)
+    },
     userDelete (event, uid) {
-      console.log(uid)
+      this.loading = true
       this.$confirm.require({
         target: event.currentTarget,
         message: 'Are you sure to delete this user?',
@@ -127,11 +133,11 @@ export default {
         acceptLabel: 'Yes. Delete it!',
         rejectLabel: 'Cancel',
         accept: () => {
-          this.loading = true
-          //
+          this.loading = false
+          console.log(uid)
         },
         reject: () => {
-          // callback to execute when user rejects the action
+          this.loading = false
         }
       })
     },

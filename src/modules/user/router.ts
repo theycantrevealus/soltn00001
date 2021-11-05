@@ -1,7 +1,8 @@
 const moduleRoute = [{
   path: '/user',
   name: 'User',
-  component: () => import(/* webpackChunkName: "user" */ '../user/Module.vue'),
+  redirect: '/user/list',
+  component: () => import(/* webpackChunkName: "user-container" */ '../user/Module.vue'),
   meta: {
     pageTitle: 'User Management Builder',
     requiresAuth: true,
@@ -26,7 +27,7 @@ const moduleRoute = [{
           }
         ]
       },
-      component: () => import(/* webpackChunkName: "user" */ '../user/views/Index.vue')
+      component: () => import(/* webpackChunkName: "user-list" */ '../user/views/Index.vue')
     },
     {
       path: 'add',
@@ -41,7 +42,7 @@ const moduleRoute = [{
           }
         ]
       },
-      component: () => import(/* webpackChunkName: "user" */ '@/modules/user/views/Add.vue')
+      component: () => import(/* webpackChunkName: "user-add" */ '@/modules/user/views/Add.vue')
     },
     {
       path: 'edit/:uid',
@@ -56,7 +57,7 @@ const moduleRoute = [{
           }
         ]
       },
-      component: () => import(/* webpackChunkName: "user" */ '@/modules/user/views/Edit.vue')
+      component: () => import(/* webpackChunkName: "user-edit" */ '@/modules/user/views/Edit.vue')
     }
   ]
 }]

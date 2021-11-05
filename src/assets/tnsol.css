@@ -202,7 +202,7 @@ body {
 }
 
 .sidepanel .layout-menu li a .material-icons, .material-icons-outlined {
-    color: #00b600ff !important;
+    color: #808080 !important;
 }
 
 .sidepanel .layout-menu li:first-child .layout-menuitem-root-text {
@@ -264,7 +264,11 @@ body {
 .layout-menu li a.router-link-exact-active {
     font-weight: bolder !important;
     background: #E8FFEB !important;
-    color: #000 !important;
+    color: #00b600ff !important;
+}
+
+.layout-menu li a.router-link-exact-active .material-icons-outlined {
+    color: #00b600ff !important;
 }
 
 .p-panelmenu .p-panelmenu-content {
