@@ -32,8 +32,15 @@ registerModules({
 })
 
 setupInterceptors()
+declare global {
+  interface Window {
+    Cypress?: any;
+    __app__?: any;
+    __store__?: any;
+  }
+}
 
-createApp(App)
+const app = createApp(App)
   .use(PrimeVue)
   .use(store)
   .use(router)
@@ -41,3 +48,8 @@ createApp(App)
   .use(ConfirmationService)
   .use(PerfectScrollbar)
   .mount('#app')
+
+if (window.Cypress) {
+  window.__app__ = app
+  window.__store__ = store
+}
