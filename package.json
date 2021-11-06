@@ -8,7 +8,7 @@
     "test:unit": "jest",
     "test:clearCache": "npx jest --clearCache",
     "test:e2e": "vue-cli-service test:e2e",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test": "npm run test:unit",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -47,6 +47,7 @@
     "babel-jest": "^27.3.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.4.0",
+    "cypress": "^8.7.0",
     "dotenv": "^10.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
