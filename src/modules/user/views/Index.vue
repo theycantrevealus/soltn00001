@@ -4,7 +4,7 @@
       <template #header>
         <Toolbar>
           <template #left>
-            <Button label="New" icon="pi pi-plus" class="p-mr-2 p-button-rounded" />
+            <Button @click="userAddForm" label="New" icon="pi pi-plus" class="p-mr-2 p-button-rounded" />
           </template>
 
           <template #right>
@@ -117,6 +117,9 @@ export default {
     this.loadLazyData()
   },
   methods: {
+    userAddForm () {
+      this.$router.push('/user/add')
+    },
     userDelete (event, uid) {
       console.log(uid)
       this.$confirm.require({

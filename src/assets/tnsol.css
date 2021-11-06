@@ -8,11 +8,38 @@
     src: url("./font/karla/static/Karla-Regular.ttf");
 }
 
+@font-face {
+    font-family: Visby Round;
+    src: url("./font/visby/VisbyRoundCF-Bold.otf");
+}
+
 body {
     overflow: hidden;
-    background: #EEFAFF !important;
+    background: #e2e2e2 !important;
     padding: 0 !important; margin: 0 !important;
-    font-family: Poppins, SansSerif, Arial, serif !important;
+    font-family: Visby Round, SansSerif, Arial, serif !important;
+}
+
+a:focus,
+button:focus,
+input:focus,
+:focus {
+  outline: none !important;
+}
+
+a::-moz-focus-inner,
+button::-moz-focus-inner,
+input::-moz-focus-inner,
+::-moz-focus-inner {
+  border: 0 !important;
+}
+
+:focus {
+  outline: none;
+}
+
+::-moz-focus-inner {
+  border: 0 !important;
 }
 
 #nprogress .bar {
@@ -64,6 +91,7 @@ body {
 }
 
 .topbar {
+    background: #e2e2e2;
     z-index: 1000;
     position: fixed;
     width: 87%;
@@ -81,7 +109,6 @@ body {
 
 .topbar .p-menubar-start {
     padding: 4px 10px 0 10px;
-    box-shadow: 3px 0 5px -2px rgba(0, 0, 0, .2);
 }
 
 .topbar .p-chip {
@@ -132,10 +159,11 @@ body {
 .loadpanel .wrapper {
     position: absolute;
     top: 60px;
+    margin-bottom: 10px;
     padding: 20px;
-    height: 1000px;
+    height: 300px;
     width: 100%;
-    min-height: 1000px;
+    min-height: 300px;
 }
 
 .breadcrumb-container {
@@ -175,7 +203,7 @@ body {
 .sidepanel {
     z-index:1000;
     position: absolute;
-    box-shadow: 5px 0 5px -2px rgba(0, 0, 0, .2);
+    padding: 0 10px;
     width: 13%;
     left: 0;
     height: 140%;
@@ -188,8 +216,8 @@ body {
     min-height: 1000px;
 }
 .sidepanel .panelLogo {
-    width: 140px;
-    height: 20px;
+    width: 120px;
+    height: 15px;
     margin-bottom: 10px;
     margin-top: 15px;
 }
@@ -197,23 +225,22 @@ body {
     padding-bottom: 100px
 }
 .sidepanel .layout-menu li a {
+    font-family: Visby Round !important;
+    font-weight: bolder;
     border-radius: 5px !important;
-    color: #606060 !important;
+    color: #808080 !important;
 }
 
 .sidepanel .layout-menu li a .material-icons, .material-icons-outlined {
-    color: #00b600ff !important;
-}
-
-.sidepanel .layout-menu li:first-child .layout-menuitem-root-text {
-    margin-top: 0px;
+    margin-top: 2.5px;
+    color: #808080 !important;
 }
 .sidepanel .layout-menu li .layout-menuitem-root-text {
+    font-family: Visby Round, SansSerif, Arial, serif !important;
+    font-weight: bolder !important;
     color: #007cffff !important;
     letter-spacing: 2px;
     font-size: 6pt !important;
-    border-bottom: solid .5px #007cffff;
-    margin-top: 40px;
 }
 
 .sidepanel hr {
@@ -236,7 +263,7 @@ body {
 }
 
 .layout-menu li a {
-    padding: 1px !important;
+    padding: 6px 0px 6px 0px;
 }
 
 .layout-menu li a:hover {
@@ -246,10 +273,6 @@ body {
 
 .layout-menuitem-root-text {
     font-size: 8pt !important;
-}
-
-.layout-menu li span.caption {
-    padding: 6px 0px 3px 0px;
 }
 
 .layout-menu li span {
@@ -263,8 +286,12 @@ body {
 
 .layout-menu li a.router-link-exact-active {
     font-weight: bolder !important;
-    background: #E8FFEB !important;
-    color: #000 !important;
+    background: #cdffbf !important;
+    color: #42b883 !important;
+}
+
+.layout-menu li a.router-link-exact-active .material-icons-outlined {
+    color: #42b883 !important;
 }
 
 .p-panelmenu .p-panelmenu-content {
@@ -372,4 +399,56 @@ body {
     word-wrap: break-word !important;
     width: 1%;
     white-space:nowrap;
+}
+
+.p-field.p-grid, .p-formgrid.p-grid {
+    padding: 10px;
+}
+
+.p-field label {
+    padding: 0 7.5px;
+    font-size: 10pt !important;
+}
+
+.p-field .p-message .p-message-wrapper {
+    padding: 10px;
+}
+
+.p-field .p-message .p-message-wrapper .p-message-icon, .p-message-text{
+    font-size: 8pt !important
+}
+
+.p-inputtext {
+    padding: 7px 10px;
+    font-size: 10pt !important;
+}
+
+.p-tabview-nav-link {
+    padding: 10px !important;
+    font-size: 10pt !important;
+}
+.p-tabview-nav-link span {
+    padding: 0 10px !important
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border-radius: 0 !important;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link .material-icons-outlined {
+    font-size: 12pt !important
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #42b883 !important;
+    color: #42b883 !important;
+    border-radius: 0 !important;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link .material-icons-outlined {
+    color: #42b883 !important;
+}
+
+.p-tooltip-text {
+    font-size: 8pt !important;
 }
