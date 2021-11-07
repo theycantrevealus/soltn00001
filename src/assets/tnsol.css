@@ -9,7 +9,7 @@
 }
 
 @font-face {
-    font-family: Visby Round;
+    font-family: 'Visby Round';
     src: url("./font/visby/VisbyRoundCF-Bold.otf");
 }
 
@@ -17,7 +17,7 @@ body {
     overflow: hidden;
     background: #e2e2e2 !important;
     padding: 0 !important; margin: 0 !important;
-    font-family: Visby Round, SansSerif, Arial, serif !important;
+    font-family: 'Visby Round', SansSerif, Arial, serif !important;
 }
 
 a:focus,
@@ -451,4 +451,41 @@ input::-moz-focus-inner,
 
 .p-tooltip-text {
     font-size: 8pt !important;
+}
+
+.p-picklist-header {
+    padding: .5rem 1.25rem !important
+}
+
+.p-picklist-buttons .p-button {
+    padding: .5rem .2rem !important;
+    font-size: .7rem;
+}
+
+.p-picklist-item .p-chip{
+    padding: .5rem 1rem;
+    font-size: .7em !important;
+}
+
+.p-picklist-item {
+    padding: .2rem !important;
+}
+
+.p-picklist-item:hover {
+    background: #cdffbf !important;
+}
+
+.p-picklist-item .material-icons-outlined {
+    font-size: 1rem;
+    margin: 0 .5rem;
+}
+
+.role-container .p-grid {
+    padding: .1rem !important;
+    margin: 0 !important
+}
+
+.role-container .p-grid .p-col-6 {
+    padding: .01rem !important;
+    margin: 0 !important;
 }
