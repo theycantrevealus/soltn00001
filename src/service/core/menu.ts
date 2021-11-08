@@ -25,6 +25,13 @@ class CoreService {
         return Promise.resolve(response)
       })
   }
+
+  menuTreeEnd () {
+    return axios.get(`${process.env.VUE_APP_APIGATEWAY}Core/menu_manager_treeend`)
+      .then(response => {
+        return Promise.resolve(response.data.response_package)
+      })
+  }
 }
 
 export default new CoreService()

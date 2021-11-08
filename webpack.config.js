@@ -30,6 +30,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
     filename: '[name].js',
     chunkFilename: '[name].js'
   },
@@ -85,12 +86,6 @@ module.exports = {
     alias: {
       vue: 'vue/dist/vue.esm-bundler.js',
       '@': path.resolve(`${__dirname}/src`)
-    }
-  },
-  jest: {
-    // support the same @ -> src alias mapping in source code
-    moduleNameMapper: {
-      '^@/(.*)$': '<rootDir>/src/$1'
     }
   }
 }

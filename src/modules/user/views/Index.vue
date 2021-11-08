@@ -4,7 +4,7 @@
       <template #header>
         <Toolbar>
           <template #left>
-            <Button label="New" icon="pi pi-plus" class="p-mr-2 p-button-rounded" />
+            <Button @click="userAddForm" label="New" icon="pi pi-plus" class="p-mr-2 p-button-rounded" />
           </template>
 
           <template #right>
@@ -19,17 +19,17 @@
           :globalFilterFields="['first_name','last_name', 'email']" responsiveLayout="scroll">
           <Column header="Action">
             <template #body="slotProps">
-          <span class="p-buttonset wrap_content">
-            <Button @click="userEdit(slotProps.data.uid)" class="p-button p-button-info p-button-sm p-button-raised">
-              <span class="material-icons">edit</span>
-            </Button>
-            <Button @click="userResetPass(slotProps.data.uid)" class="p-button p-button-warning p-button-sm p-button-raised">
-              <span class="material-icons">refresh</span>
-            </Button>
-            <Button @click="userDelete($event, slotProps.data.uid)" class="p-button p-button-danger p-button-sm p-button-raised">
-              <span class="material-icons">delete</span>
-            </Button>
-          </span>
+              <span class="p-buttonset wrap_content">
+                <Button @click="userEditForm(slotProps.data.uid)" class="p-button p-button-info p-button-sm p-button-raised">
+                  <span class="material-icons">edit</span>
+                </Button>
+                <Button @click="userResetPass(slotProps.data.uid)" class="p-button p-button-warning p-button-sm p-button-raised">
+                  <span class="material-icons">refresh</span>
+                </Button>
+                <Button @click="userDelete($event, slotProps.data.uid)" class="p-button p-button-danger p-button-sm p-button-raised">
+                  <span class="material-icons">delete</span>
+                </Button>
+              </span>
             </template>
           </Column>
           <Column header="#">
@@ -104,8 +104,6 @@ export default {
     }
   },
   mounted () {
-    this.loading = true
-
     this.lazyParams = {
       first: 0,
       rows: this.$refs.dt.rows,
@@ -117,8 +115,13 @@ export default {
     this.loadLazyData()
   },
   methods: {
+    userAddForm () {
+      this.$router.push('/user/add')
+    },
+    userEditForm (uid) {
+      this.$router.push(`/user/edit/${uid}`)
+    },
     userDelete (event, uid) {
-      console.log(uid)
       this.$confirm.require({
         target: event.currentTarget,
         message: 'Are you sure to delete this user?',
@@ -128,7 +131,11 @@ export default {
         rejectLabel: 'Cancel',
         accept: () => {
           this.loading = true
-          //
+          UserService.deleteUser(uid).then(data => {
+            if (data > 0) {
+              this.loadLazyData()
+            }
+          })
         },
         reject: () => {
           // callback to execute when user rejects the action
