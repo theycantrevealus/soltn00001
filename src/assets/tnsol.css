@@ -471,6 +471,10 @@ input::-moz-focus-inner,
     padding: .2rem !important;
 }
 
+.p-picklist-item .p-field-checkbox, .p-field-radiobutton {
+    margin-bottom: 0 !important;
+}
+
 .p-picklist-item:hover {
     background: #cdffbf !important;
 }

@@ -184,7 +184,9 @@ export default {
         $message: 'Invalid Name Format'
       },
       minLength: minLength(4)
-    }
+    },
+    address: {},
+    contact: {}
   },
   methods: {
     backToUser () {
