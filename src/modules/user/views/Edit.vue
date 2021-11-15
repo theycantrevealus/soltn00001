@@ -46,49 +46,31 @@
                   <span class="material-icons-outlined">vpn_key</span>
                     <span>Role and Permission</span>
                 </template>
-                <PickList v-model="menuList" dataKey="id" @move-all-to-target="moveAllItemGranted" @move-all-to-source="removeAllItemGranted" @move-to-target="moveGranted($event)" @move-to-source="removeGranted($event)" >
-                  <template #sourceHeader>
-                    Roles
+                <DataTable :value="permissionList" dataKey="id" responsiveLayout="scroll" v-model:expandedRows="expandedRows">
+                  <template #header>
+                    All Permission
                   </template>
-                  <template #targetHeader>
-                    Granted
-                  </template>
-                  <template #item="slotProps">
-                    <div class="role-container">
-                      <div class="p-grid">
-                        <div class="p-col-6">
-                          <Chip>
-                            <span class="material-icons-outlined">{{ slotProps.item.icon }}</span><strong>{{ slotProps.item.label }}</strong>
-                          </Chip>
-                        </div>
-                        <div class="p-col-2">
-                          <div class="p-field-checkbox" v-if="!checkedPerm[`delete_perm_${slotProps.item.id}`].disabled">
-                            <Checkbox :id="`delete_perm_${ slotProps.item.id }`" :disabled="checkedPerm[`delete_perm_${slotProps.item.id}`].disabled" :binary="checkedPerm[`delete_perm_${slotProps.item.id}`].checked" v-model="grantedItem[`menu_${slotProps.item.id}`].delete" />
-                            <label :for="`delete_perm_${ slotProps.item.id }`">
-                              <span class="material-icons-outlined">delete</span>
-                            </label>
-                          </div>
-                        </div>
-                        <div class="p-col-2">
-                          <div class="p-field-checkbox" v-if="!checkedPerm[`edit_perm_${slotProps.item.id}`].disabled">
-                            <Checkbox :id="`edit_perm_${ slotProps.item.id }`" :disabled="checkedPerm[`edit_perm_${slotProps.item.id}`].disabled" :binary="checkedPerm[`edit_perm_${slotProps.item.id}`].checked" v-model="grantedItem[`menu_${slotProps.item.id}`].edit" />
-                            <label :for="`edit_perm_${ slotProps.item.id }`">
-                              <span class="material-icons-outlined">edit</span>
-                            </label>
-                          </div>
-                        </div>
-                        <div class="p-col-2">
-                          <div class="p-field-checkbox" v-if="!checkedPerm[`add_perm_${slotProps.item.id}`].disabled">
-                            <Checkbox :id="`add_perm_${ slotProps.item.id }`" :disabled="checkedPerm[`add_perm_${slotProps.item.id}`].disabled" :binary="checkedPerm[`add_perm_${slotProps.item.id}`].checked" v-model="grantedItem[`menu_${slotProps.item.id}`].add" />
-                            <label :for="`add_perm_${ slotProps.item.id }`">
-                              <span class="material-icons-outlined">add</span>
-                            </label>
+                  <Column :expander="true" headerStyle="width: 3rem" />
+                  <Column field="group" header="Group" sortable></Column>
+                  <Column field="label" header="Label" sortable>
+                    <template #body="slotProps">
+                      {{ slotProps.data.label }} <Badge v-if="slotProps.data.permission.length > 0" :value="slotProps.data.permission.length"></Badge>
+                    </template>
+                  </Column>
+                  <template #expansion="slotProps">
+                    <div class="p-grid">
+                      <div class="p-col-2"></div>
+                      <div class="p-col-10">
+                        <div v-if="slotProps.data.permission !== undefined">
+                          <div class="p-field-checkbox" v-for="perPermission in slotProps.data.permission" :key="perPermission">
+                            <InputSwitch v-model="checkedPermission[`menu_${perPermission.id}`]" />
+                            <label>{{ perPermission.domiden }}</label>
                           </div>
                         </div>
                       </div>
                     </div>
                   </template>
-                </PickList>
+                </DataTable>
             </TabPanel>
           </TabView>
         </template>
@@ -116,9 +98,11 @@ import Textarea from 'primevue/textarea'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Message from 'primevue/message'
-import Chip from 'primevue/chip'
-import PickList from 'primevue/picklist'
-import Checkbox from 'primevue/checkbox'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Badge from 'primevue/badge'
+import InputSwitch from 'primevue/inputswitch'
+// import Checkbox from 'primevue/checkbox'
 
 import { validateEmail, validateName } from '@/util/string'
 import useVuelidate from '@vuelidate/core'
@@ -128,21 +112,27 @@ import UserService from '@/modules/user/service'
 export default {
   name: 'UserEdit',
   components: {
-    Card, Toolbar, Button, InputText, Textarea, TabView, TabPanel, Message, PickList, Chip, Checkbox
+    Card, Toolbar, Button, InputText, Textarea, TabView, TabPanel, Message, DataTable, Column, Badge, InputSwitch
   },
   setup () {
     return { $v: useVuelidate() }
   },
   data () {
     return {
+      expandedRows: [],
+      permissionList: [],
+      setterFeature: [],
+      allItem: {},
       grantedItem: {},
+      ungrantedItem: {},
       menuList: [],
-      checkedPerm: {},
+      checkedPermission: {},
       email: '',
       first_name: '',
       last_name: '',
       address: '',
       contact: '',
+      roleGranted: [],
       response: {
         type: 'errors',
         message: ''
@@ -184,110 +174,35 @@ export default {
       this.last_name = response.last_name
       this.address = response.address
       this.contact = response.contact
-
       this.menuList = [response.ungranted, response.granted]
-      for (const a in response.ungranted) {
-        this.checkPerm(`delete_perm_${response.ungranted[a].id}`)
-        this.checkPerm(`edit_perm_${response.ungranted[a].id}`)
-        this.checkPerm(`add_perm_${response.ungranted[a].id}`)
-      }
-
-      const roleGranted = response.rolenperm
-      for (const z in roleGranted) {
-        const targetMenu = roleGranted[z].menu
-        const roleLib = roleGranted[z].role
-        if (this.grantedItem[`menu_${targetMenu}`] === undefined) {
-          this.grantedItem[`menu_${targetMenu}`] = {
-            add: false,
-            edit: false,
-            delete: false
+      const allPermission = response.all_permission
+      const permissionList = []
+      for (const a in allPermission) {
+        if (allPermission[a].permission.length > 0) {
+          for (const b in allPermission[a].permission) {
+            if (this.checkedPermission[`menu_${allPermission[a].permission[b].id}`] === undefined) {
+              this.checkedPermission[`menu_${allPermission[a].permission[b].id}`] = false
+            }
+            this.checkedPermission[`menu_${allPermission[a].permission[b].id}`] = false
+            permissionList.push(allPermission[a].permission[b])
           }
         }
 
-        for (const y in roleLib) {
-          this.checkedPerm[`${y}_perm_${targetMenu}`] = {
-            value: true,
-            disabled: false,
-            checked: true
-          }
-          this.grantedItem[`menu_${targetMenu}`][y] = roleLib[y]
-        }
+        this.permissionList.push(allPermission[a])
       }
+
+      const allRole = response.rolenperm
+      for (const c in allRole) {
+        this.checkedPermission[`menu_${allRole[c].permission}`] = true
+      }
+      this.roleGranted = response.rolenperm
     })
   },
   methods: {
     backToUser () {
       this.$router.push('/user/list')
     },
-    checkPerm (target, setter = false, dis = false) {
-      if (this.checkedPerm[target] === undefined) {
-        this.checkedPerm[target] = {
-          value: false,
-          disabled: true,
-          checked: true
-        }
-      } else {
-        this.checkedPerm[target] = {
-          value: setter,
-          disabled: dis,
-          checked: true
-        }
-      }
-    },
-    moveAllItemGranted () {
-      for (var a in this.checkedPerm) {
-        this.checkedPerm[a].disabled = false
-        let id = a.split('_')
-        id = id[id.length - 1]
-        if (this.grantedItem[`menu_${id}`] === undefined) {
-          this.grantedItem[`menu_${id}`] = {
-            delete: false,
-            edit: false,
-            add: false
-          }
-        }
-      }
-      // console.clear()
-      // console.log(JSON.stringify(this.grantedItem))
-    },
-    removeAllItemGranted () {
-      for (var a in this.checkedPerm) {
-        this.checkedPerm[a].disabled = true
-        let id = a.split('_')
-        id = id[id.length - 1]
-        delete this.grantedItem[`menu_${id}`]
-      }
-    },
-    moveGranted (event) {
-      const selectedData = event.items[0]
-      this.checkedPerm[`add_perm_${selectedData.id}`].disabled = false
-      this.checkedPerm[`edit_perm_${selectedData.id}`].disabled = false
-      this.checkedPerm[`delete_perm_${selectedData.id}`].disabled = false
-
-      if (this.grantedItem[`menu_${selectedData.id}`] === undefined) {
-        this.grantedItem[`menu_${selectedData.id}`] = {
-          delete: false,
-          edit: false,
-          add: false
-        }
-      }
-      this.grantedItem[`menu_${selectedData.id}`] = {
-        delete: false,
-        edit: false,
-        add: false
-      }
-    },
-    removeGranted (event) {
-      const selectedData = event.items[0]
-      this.checkedPerm[`add_perm_${selectedData.id}`].disabled = true
-      this.checkedPerm[`edit_perm_${selectedData.id}`].disabled = true
-      this.checkedPerm[`delete_perm_${selectedData.id}`].disabled = true
-
-      delete this.grantedItem[`menu_${selectedData.id}`]
-    },
     editUser () {
-      console.clear()
-      console.log('Edit')
       UserService.editUser({
         request: 'edit_user',
         email: this.email,
@@ -295,7 +210,7 @@ export default {
         last_name: this.last_name,
         address: this.address,
         contact: this.contact,
-        rolenperm: this.grantedItem,
+        rolenperm: this.checkedPermission,
         uid: this.$route.params.uid
       }).then((response) => {
         console.log(response)

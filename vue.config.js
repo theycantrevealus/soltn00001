@@ -2,5 +2,8 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/soltn00001/dist/' : '/',
   configureWebpack: {
     devtool: 'eval-source-map'
+  },
+  devServer: {
+    host: 'localhost'
   }
 }

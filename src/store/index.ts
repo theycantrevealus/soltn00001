@@ -15,6 +15,8 @@ const store = createStore({
     credential: {
       first_name: '',
       last_name: '',
+      permission: [],
+      grantedPage: [],
       token: null
     },
     sidemenu: []
@@ -64,6 +66,18 @@ const store = createStore({
     LOGIN_SUCCESS (state:any, credentialData) {
       state.credential.first_name = credentialData.first_name
       state.credential.last_name = credentialData.last_name
+
+      const grantedPage = credentialData.roleandperm
+      const grantedPageParsed : string[] = []
+      for (const a in grantedPage) {
+        if (grantedPage[a].detail !== null) {
+          grantedPageParsed.push(grantedPage[a].detail.target_link)
+        }
+      }
+      state.credential.permission = grantedPage
+      state.credential.grantedPage = grantedPageParsed
+      console.clear()
+      console.log(state.credential)
     },
     CLEAR_SESSION (state: any) {
       state.credential.token = null

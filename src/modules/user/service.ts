@@ -14,6 +14,8 @@ class UserService {
 
   getDetail (uid) {
     return axios.get(`${process.env.VUE_APP_APIGATEWAY}Account/detail/${uid}`).then((response: any) => {
+      console.clear()
+      console.log(response.data.response_package.response_data[0])
       return Promise.resolve(response.data.response_package.response_data[0])
     })
   }
