@@ -505,13 +505,33 @@ input::-moz-focus-inner,
 
 
 .p-badge {
-    font-size: .5rem !important;
+    font-size: .6rem !important;
     font-family: 'Visby Round', SansSerif, Arial, serif !important;
     min-width: 1rem !important;
     min-height: 1rem !important;
-    width: 1rem !important;
-    height: 1rem !important;
-    line-height: 1rem !important;
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    line-height: 1.2rem !important;
+}
+
+.p-badge-success {
+    background: #b7f59f !important;
+    color: #08b500 !important;
+}
+
+.p-badge-info {
+    background: #c5e0ff !important;
+    color: #006dea !important
+}
+
+.p-badge-danger {
+    background: #ffd6d6 !important;
+    color: #ff0000 !important
+}
+
+.p-badge-warning {
+    background:  #fffcbc !important;
+    color: #c8b000 !important
 }
 
 .p-inputswitch {

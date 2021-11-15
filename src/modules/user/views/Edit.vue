@@ -54,7 +54,7 @@
                   <Column field="group" header="Group" sortable></Column>
                   <Column field="label" header="Label" sortable>
                     <template #body="slotProps">
-                      {{ slotProps.data.label }} <Badge v-if="slotProps.data.permission.length > 0" :value="slotProps.data.permission.length"></Badge>
+                      {{ slotProps.data.label }} <Badge severity="info" v-if="slotProps.data.permission.length > 0" :value="slotProps.data.permission.length"></Badge>
                     </template>
                   </Column>
                   <template #expansion="slotProps">

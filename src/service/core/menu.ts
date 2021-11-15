@@ -33,6 +33,13 @@ class CoreService {
       })
   }
 
+  menuPermission () {
+    return axios.get(`${process.env.VUE_APP_APIGATEWAY}Core/menu_permission`)
+      .then(response => {
+        return Promise.resolve(response)
+      })
+  }
+
   menuTreeEnd () {
     return axios.get(`${process.env.VUE_APP_APIGATEWAY}Core/menu_manager_treeend`)
       .then(response => {
