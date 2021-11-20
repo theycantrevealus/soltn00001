@@ -15,7 +15,7 @@
 
 body {
     overflow: hidden;
-    background: #e2e2e2 !important;
+    background: #41B883 !important;
     padding: 0 !important; margin: 0 !important;
     font-family: 'Visby Round', SansSerif, Arial, serif !important;
 }
@@ -91,11 +91,11 @@ input::-moz-focus-inner,
 }
 
 .topbar {
-    background: #e2e2e2;
+    background: #41B883;
     z-index: 1000;
     position: fixed;
-    width: 87%;
-    left: 13%;
+    width: 85%;
+    left: 15%;
     height: 60px;
     /*background: #C7DEE1 !important;*/
 }
@@ -151,8 +151,8 @@ input::-moz-focus-inner,
     overflow: hidden;
     position: fixed;
     z-index: 998;
-    width: 87%;
-    left:13%;
+    width: 85%;
+    left:15%;
     height: 100%;
 }
 
@@ -178,36 +178,37 @@ input::-moz-focus-inner,
 
 .breadcrumb-container .p-menuitem-link span {
     font-size: 10pt !important;
-    color: #003F49 !important
+    color: #fff !important
 }
 
 .breadcrumb-container .p-breadcrumb-chevron {
     margin-top: 3px !important;
     font-size: 5pt !important;
-    color: #003F49 !important
+    color: #fff !important
 }
 
 .breadcrumb-container .pageName {
     font-family: Karla, SansSerif, Arial, serif !important;
     font-size: 12pt !important;
     font-weight: bolder;
-    border-right: solid 1px #808080;
+    border-right: solid 1px #fff;
     padding: 0 20px !important;
+    color: #fff;
 }
 
 .breadcrumb-container .pageName span {
-    color: #003F49;
+    color: #fff;
     font-size: 10pt !important;
 }
 
 .sidepanel {
     z-index:1000;
     position: absolute;
-    padding: 0 10px;
-    width: 13%;
+    padding: 0;
+    width: 15%;
     left: 0;
     height: 140%;
-    background: #fff;
+    background: #34495E;
 }
 .sidepanel .wrapper {
     padding: 10px;
@@ -216,10 +217,12 @@ input::-moz-focus-inner,
     min-height: 1000px;
 }
 .sidepanel .panelLogo {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-    margin-top: 15px;
+    -webkit-filter: drop-shadow(0px 0px 7px rgba(240, 240, 240, 0.7));
+    filter: drop-shadow(0px 0px 7px rgba(240, 240, 240, 0.7));
+    position: relative;
+    width: 80%;
+    height: 35px;
+    margin: 15px 10% 10px 10%;
 }
 .sidepanel-container {
     padding-bottom: 100px
@@ -228,12 +231,12 @@ input::-moz-focus-inner,
     font-family: Visby Round !important;
     font-weight: bolder;
     border-radius: 5px !important;
-    color: #808080 !important;
+    color: #fff !important;
 }
 
 .sidepanel .layout-menu li a .material-icons, .material-icons-outlined {
-    margin-top: 2.5px;
-    color: #808080 !important;
+    margin-top: 1px;
+    color: #fff !important;
 }
 .sidepanel .layout-menu li .layout-menuitem-root-text {
     font-family: Visby Round, SansSerif, Arial, serif !important;
@@ -276,17 +279,17 @@ input::-moz-focus-inner,
 }
 
 .layout-menu li span {
-    font-size: 8pt !important;
+    font-size: .7rem !important;
     letter-spacing: 1px
 }
 
-.layout-menu li span.material-icons {
-    font-size: 8pt !important;
+.layout-menu li span.material-icons-outlined {
+    font-size: 1rem !important;
 }
 
 .layout-menu li a.router-link-exact-active {
     font-weight: bolder !important;
-    background: #cdffbf !important;
+    background: #eeffe1 !important;
     color: #42b883 !important;
 }
 
@@ -343,6 +346,7 @@ input::-moz-focus-inner,
 
 .p-card {
     border-radius: 3px !important;
+    /* box-shadow: 0px 0px 5px 5px rgba(240, 240 ,240 ,.5) !important;*/
     box-shadow: none !important;
 }
 
@@ -359,6 +363,7 @@ input::-moz-focus-inner,
 }
 
 .p-card-title {
+    padding: 20px 30px 0 30px;
     font-family: Karla, SansSerif, Arial, serif !important;
     font-size: 11pt !important;
 }

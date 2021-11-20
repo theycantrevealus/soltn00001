@@ -284,8 +284,6 @@ export default defineComponent({
       this.ui.modal.manageMenu.title = `${mode}  ${data.label}`
       CoreService.menuDetail(data.id).then(response => {
         const dataSelected = response.data.response_package.response_data[0]
-        console.clear()
-        console.log(dataSelected.permission)
         if (dataSelected.permission !== null) {
           this.setterPermission = dataSelected.permission
         }
@@ -329,8 +327,6 @@ export default defineComponent({
         icon: icon,
         showOnMenu: showMenu
       }).then((response: any) => {
-        console.clear()
-        console.log(response)
         response = response.data.response_package
         if (response.response_result > 0) {
           this.reloadMenu()

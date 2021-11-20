@@ -2,86 +2,158 @@
   <div>
     <form autocomplete="off" @submit.prevent="addUser">
       <Card class="card-fluid">
+        <template #title>
+          <h5>Add User</h5>
+        </template>
         <template #content>
           <TabView class="tabview-custom" ref="tabview4">
             <TabPanel>
-                <template #header>
-                    <span class="material-icons-outlined">account_circle</span>
-                    <span>Basic Information</span>
-                </template>
-                <div class="p-fluid p-formgrid p-grid">
-                  <div class="p-field p-col-12 p-md-4">
-                    <label for="userFormEmail">Email</label>
-                    <InputText placeholder="example@domain.com" id="userFormEmail" type="text" v-model.trim="$v.email.$model" />
-                    <Message severity="error" v-if="$v.email.$errors.length > 0" :closable="false">
-                      <div class="error-msg" v-for="(error, index) of $v.email.$errors" :key="index">{{ error.$message }}</div>
-                    </Message>
-                  </div>
-                  <div class="p-field p-col-12 p-md-4">
-                    <label for="userFormFirstName">Firstname</label>
-                    <InputText placeholder="Jhonny" id="userFormFirstName" type="text" v-model.trim="$v.first_name.$model" />
-                    <Message severity="error" v-if="$v.first_name.$errors.length > 0" :closable="false">
-                      <div class="error-msg" v-for="(error, index) of $v.first_name.$errors" :key="index">{{ error.$message }}</div>
-                    </Message>
-                  </div>
-                  <div class="p-field p-col-12 p-md-4">
-                    <label for="userFormLastName">Lastname</label>
-                    <InputText placeholder="Sins" id="userFormLastName" type="text" v-model.trim="$v.last_name.$model" />
-                    <Message severity="error" v-if="$v.last_name.$errors.length > 0" :closable="false">
-                      <div class="error-msg" v-for="(error, index) of $v.last_name.$errors" :key="index">{{ error.$message }}</div>
-                    </Message>
-                  </div>
-                  <div class="p-field p-col-12">
-                    <label for="userFormAddress">Address</label>
-                    <Textarea v-model.trim="$v.address.$model" id="userFormAddress" placeholder="4th Avenue" rows="4" />
-                  </div>
-                  <div class="p-field p-col-12 p-md-6">
-                    <label for="userFormContact">Contact</label>
-                    <InputText v-model.trim="$v.contact.$model" id="userFormContact" placeholder="000-00000" type="text" />
-                  </div>
+              <template #header>
+                <span class="material-icons-outlined">account_circle</span>
+                <span>Basic Information</span>
+              </template>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-4">
+                  <label for="userFormEmail">Email</label>
+                  <InputText
+                    placeholder="example@domain.com"
+                    id="userFormEmail"
+                    type="text"
+                    v-model.trim="$v.email.$model"
+                  />
+                  <Message severity="error" v-if="$v.email.$errors.length > 0" :closable="false">
+                    <div
+                      class="error-msg"
+                      v-for="(error, index) of $v.email.$errors"
+                      :key="index"
+                    >{{ error.$message }}</div>
+                  </Message>
                 </div>
+                <div class="p-field p-col-12 p-md-4">
+                  <label for="userFormFirstName">Firstname</label>
+                  <InputText
+                    placeholder="Jhonny"
+                    id="userFormFirstName"
+                    type="text"
+                    v-model.trim="$v.first_name.$model"
+                  />
+                  <Message
+                    severity="error"
+                    v-if="$v.first_name.$errors.length > 0"
+                    :closable="false"
+                  >
+                    <div
+                      class="error-msg"
+                      v-for="(error, index) of $v.first_name.$errors"
+                      :key="index"
+                    >{{ error.$message }}</div>
+                  </Message>
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                  <label for="userFormLastName">Lastname</label>
+                  <InputText
+                    placeholder="Sins"
+                    id="userFormLastName"
+                    type="text"
+                    v-model.trim="$v.last_name.$model"
+                  />
+                  <Message
+                    severity="error"
+                    v-if="$v.last_name.$errors.length > 0"
+                    :closable="false"
+                  >
+                    <div
+                      class="error-msg"
+                      v-for="(error, index) of $v.last_name.$errors"
+                      :key="index"
+                    >{{ error.$message }}</div>
+                  </Message>
+                </div>
+                <div class="p-field p-col-12">
+                  <label for="userFormAddress">Address</label>
+                  <Textarea
+                    v-model.trim="$v.address.$model"
+                    id="userFormAddress"
+                    placeholder="4th Avenue"
+                    rows="4"
+                  />
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <label for="userFormContact">Contact</label>
+                  <InputText
+                    v-model.trim="$v.contact.$model"
+                    id="userFormContact"
+                    placeholder="000-00000"
+                    type="text"
+                  />
+                </div>
+              </div>
             </TabPanel>
             <TabPanel>
-                <template #header>
-                  <span class="material-icons-outlined">vpn_key</span>
-                    <span>Role and Permission</span>
-                </template>
-                <DataTable :value="permissionList" dataKey="id" responsiveLayout="scroll" v-model:expandedRows="expandedRows">
-                  <template #header>
-                    All Permission
+              <template #header>
+                <span class="material-icons-outlined">vpn_key</span>
+                <span>Role and Permission</span>
+              </template>
+              <DataTable
+                :value="permissionList"
+                data-key="id"
+                responsiveLayout="scroll"
+                v-model:expandedRows="expandedRows"
+              >
+                <template #header>All Permission</template>
+                <Column :expander="true" headerStyle="width: 3rem" />
+                <Column field="group" header="Group" sortable></Column>
+                <Column field="label" header="Label" sortable>
+                  <template #body="slotProps">
+                    {{ slotProps.data.label }}
+                    <Badge
+                      severity="info"
+                      v-if="slotProps.data.permission.length > 0"
+                      :value="slotProps.data.permission.length"
+                    ></Badge>
                   </template>
-                  <Column :expander="true" headerStyle="width: 3rem" />
-                  <Column field="group" header="Group" sortable></Column>
-                  <Column field="label" header="Label" sortable>
-                    <template #body="slotProps">
-                      {{ slotProps.data.label }} <Badge severity="info" v-if="slotProps.data.permission.length > 0" :value="slotProps.data.permission.length"></Badge>
-                    </template>
-                  </Column>
-                  <template #expansion="slotProps">
-                    <div class="p-grid">
-                      <div class="p-col-2"></div>
-                      <div class="p-col-10">
-                        <div v-if="slotProps.data.permission !== undefined">
-                          <div class="p-field-checkbox" v-for="perPermission in slotProps.data.permission" :key="perPermission">
-                            <InputSwitch v-model="checkedPermission[`menu_${perPermission.id}`]" />
-                            <label>{{ perPermission.domiden }}</label>
-                          </div>
+                </Column>
+                <template #expansion="slotProps">
+                  <div class="p-grid">
+                    <div class="p-col-2"></div>
+                    <div class="p-col-10">
+                      <div v-if="slotProps.data.permission !== undefined">
+                        <div
+                          class="p-field-checkbox"
+                          v-for="perPermission in slotProps.data.permission"
+                          :key="perPermission"
+                        >
+                          <InputSwitch v-model="checkedPermission[`menu_${perPermission.id}`]" />
+                          <label>{{ perPermission.domiden }}</label>
                         </div>
                       </div>
                     </div>
-                  </template>
-                </DataTable>
+                  </div>
+                </template>
+              </DataTable>
             </TabPanel>
           </TabView>
         </template>
         <template #footer>
           <Toolbar>
             <template #left>
-              <Button id="userFormSubmit" label="Cancel" icon="pi pi-angle-left" class="p-button-danger p-button-rounded" @click="backToUser" />
+              <Button
+                id="userFormSubmit"
+                label="Cancel"
+                icon="pi pi-angle-left"
+                class="p-button-danger p-button-rounded"
+                @click="backToUser"
+              />
             </template>
 
             <template #right>
-              <Button label="Save" type="submit" :disabled="$v.$invalid" icon="pi pi-save" class="p-mr-2 p-button-success p-button-rounded" />
+              <Button
+                label="Save"
+                type="submit"
+                :disabled="$v.$invalid"
+                icon="pi pi-save"
+                class="p-mr-2 p-button-success p-button-rounded"
+              />
             </template>
           </Toolbar>
         </template>
@@ -198,8 +270,6 @@ export default {
           }
         }
       }
-      // console.clear()
-      // console.log(JSON.stringify(this.grantedItem))
     },
     removeAllItemGranted () {
       for (var a in this.checkedPerm) {

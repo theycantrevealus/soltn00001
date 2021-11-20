@@ -27,8 +27,12 @@ import 'nprogress/nprogress.css'
 // Modular
 import { registerModules } from '@/modules/register'
 import User from '@/modules/user'
+import Service from '@/modules/service'
+import MasterItem from '@/modules/master_item'
 registerModules({
-  accountModule: User
+  accountModule: User,
+  serviceModule: Service,
+  masterItemModule: MasterItem
 })
 
 setupInterceptors()

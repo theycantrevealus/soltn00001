@@ -14,6 +14,21 @@ const moduleRoute = [{
   },
   children: [
     {
+      path: 'authority',
+      name: 'UserAuthority',
+      meta: {
+        pageTitle: 'User Authority',
+        requireAuth: true,
+        breadcrumb: [
+          {
+            label: 'User',
+            to: '/user/list'
+          }
+        ]
+      },
+      component: () => import(/* webpackChunkName: "user" */ '../user/views/Authority.vue')
+    },
+    {
       path: 'list',
       name: 'UserList',
       meta: {
@@ -22,7 +37,7 @@ const moduleRoute = [{
         breadcrumb: [
           {
             label: 'User',
-            to: '/user'
+            to: '/user/list'
           }
         ]
       },
@@ -37,7 +52,7 @@ const moduleRoute = [{
         breadcrumb: [
           {
             label: 'User',
-            to: '/user'
+            to: '/user/list'
           }
         ]
       },
@@ -52,7 +67,7 @@ const moduleRoute = [{
         breadcrumb: [
           {
             label: 'User',
-            to: '/user'
+            to: '/user/list'
           }
         ]
       },

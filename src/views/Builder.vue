@@ -5,7 +5,7 @@
     </div>
     <div className="sidepanel">
       <div class="wrapper">
-        <img class="panelLogo" :src="require('../assets/logo.svg')"  alt="SolTN00001"/>
+        <img class="panelLogo" :src="require('../assets/logo.png')"  alt="SolTN00001"/>
       </div>
       <perfect-scrollbar>
         <div class="wrapper">
