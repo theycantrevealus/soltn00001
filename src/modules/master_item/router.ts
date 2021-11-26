@@ -22,7 +22,7 @@ const moduleRoute = [{
         breadcrumb: [
           {
             label: 'Master Item',
-            to: '/master/item/list'
+            to: '/master/item/'
           }
         ]
       },
@@ -37,7 +37,7 @@ const moduleRoute = [{
         breadcrumb: [
           {
             label: 'Master Item',
-            to: '/master/item/list'
+            to: '/master/item/'
           }
         ]
       },
@@ -52,7 +52,7 @@ const moduleRoute = [{
         breadcrumb: [
           {
             label: 'Master Item',
-            to: '/master/item/list'
+            to: '/master/item/'
           }
         ]
       },

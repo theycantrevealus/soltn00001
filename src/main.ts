@@ -1,7 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import PrimeVue from 'primevue/config'
+// import * as Sentry from '@sentry/vue'
+// import { Integrations } from '@sentry/tracing'
 import './registerServiceWorker'
+
 import router from './router'
 import store from './store'
 import PerfectScrollbar from 'vue3-perfect-scrollbar'
@@ -23,16 +26,19 @@ import '@/assets/style/toolbar.css'
 import '@/assets/style/table.css'
 import '@/assets/style/modal.css'
 import 'nprogress/nprogress.css'
+import CKEditor from '@ckeditor/ckeditor5-vue'
 
 // Modular
 import { registerModules } from '@/modules/register'
 import User from '@/modules/user'
 import Service from '@/modules/service'
 import MasterItem from '@/modules/master_item'
+import MasterTour from '@/modules/master_tour'
 registerModules({
   accountModule: User,
   serviceModule: Service,
-  masterItemModule: MasterItem
+  masterItemModule: MasterItem,
+  masterTourModule: MasterTour
 })
 
 setupInterceptors()
@@ -45,13 +51,31 @@ declare global {
 }
 
 const app = createApp(App)
-  .use(PrimeVue)
+
+// Sentry.init({
+//   app,
+//   dsn: 'https://ccc158cc16aa4e1cba6149c59354b5b7@o970117.ingest.sentry.io/6073617',
+//   integrations: [
+//     new Integrations.BrowserTracing({
+//       routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+//       tracingOrigins: ['localhost', 'my-site-url.com', /^\//]
+//     })
+//   ],
+//   // Set tracesSampleRate to 1.0 to capture 100%
+//   // of transactions for performance monitoring.
+//   // We recommend adjusting this value in production
+//   tracesSampleRate: 1.0
+// })
+
+app.use(PrimeVue)
   .use(store)
   .use(router)
   .use(ToastService)
   .use(ConfirmationService)
   .use(PerfectScrollbar)
-  .mount('#app')
+  .use(CKEditor)
+
+app.mount('#app')
 
 if (window.Cypress) {
   window.__app__ = app

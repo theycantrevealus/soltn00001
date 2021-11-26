@@ -20,6 +20,27 @@ body {
     font-family: 'Visby Round', SansSerif, Arial, serif !important;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.largeDataType tbody tr td {
+    border-collapse: collapse;
+	vertical-align: top !important;
+	font-size: 8pt !important;
+	-webkit-transition-duration: .5s;
+	-moz-transition-duration: .5s;
+	-ms-transition-duration: .5s;
+	-o-transition-duration: .5s;
+	transition-duration: .5s;
+    padding: 5px 10px;
+}
+
+.largeDataType tbody tr:nth-child(even) td {
+    background: #eeffe1 !important;
+}
+
 a:focus,
 button:focus,
 input:focus,
@@ -553,4 +574,37 @@ input::-moz-focus-inner,
 
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider::before {
     transform: translateX(.5rem);
+}
+
+.chemicalContainer {
+    padding: 20px 0 !important;
+    border-radius: 10px;
+    background: #f1f1f1 !important;
+}
+
+.chemicalViewer {
+    position: absolute;
+    left: 5%; top: 5%;
+    width:90% !important;
+    height:400px !important;
+    border-radius: 10px;
+    background: #f1f1f1;
+    box-shadow:  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.8);
+}
+
+.chemicalViewer h5 {
+    padding: 0 20px;
+}
+
+.ck-toolbar__items .ck-button {
+    font-size: .6rem !important;
+}
+
+.ck-content.ck-editor__editable {
+    font-size: .8rem !important;
+}
+
+.ck.ck-editor__main > .ck-editor__editable {
+    min-height: 300px !important;
 }

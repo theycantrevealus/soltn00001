@@ -14,6 +14,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 
+const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin')
+
 module.exports = {
   devServer: {
     devMiddleware: {
@@ -79,6 +81,10 @@ module.exports = {
       analyzerMode: 'static',
       reportFilename: 'webpack_bundle_analyser_report.html',
       defaultSizes: 'gzip'
+    }),
+    new CKEditorWebpackPlugin({
+      language: 'en',
+      translationsOutputFile: /app/
     })
   ],
   resolve: {
