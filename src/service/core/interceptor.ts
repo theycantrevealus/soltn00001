@@ -16,11 +16,9 @@ export default function execute () {
   instance.interceptors.response.use((response) => {
     return response
   }, (err) => {
-    console.log(err.response.status)
     if (err.response.status === 401) {
       store.commit('LOGOUT')
     }
-    console.log('err')
     return Promise.reject(err)
   })
 }

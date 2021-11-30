@@ -3,6 +3,7 @@ import store from '@/store/index'
 import Builder from '@/views/Builder.vue'
 import Login from '@/views/Account/Login.vue'
 import PageNotFound from '@/views/Handling/404.vue'
+import PageUnauthorized from '@/views/Handling/403.vue'
 
 const NProgress = require('nprogress')
 const routes: Array<RouteRecordRaw> = [
@@ -72,6 +73,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/404',
     name: 'PageNotFound',
     component: PageNotFound
+  },
+  {
+    path: '/403',
+    name: 'PageUnauthorized',
+    component: PageUnauthorized
   }
 ]
 
@@ -88,6 +94,13 @@ router.beforeEach((to, from, next) => {
     const isAuthed = ((<any>store.state).credential.token !== '' && (<any>store.state).credential.token !== null && (<any>store.state).credential.token !== undefined)
     if (to.matched.some(record => record.meta.requiresAuth)) {
       if (isAuthed) {
+        // Check If authorized Page
+        // const authorized: string[] = store.state.credential.grantedPage
+        // if (authorized.indexOf(to.fullPath) >= 0) {
+        //   next()
+        //   return
+        // }
+        // next('/403')
         next()
         return
       }

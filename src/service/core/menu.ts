@@ -26,6 +26,20 @@ class CoreService {
       })
   }
 
+  menuDetail (id) {
+    return axios.get(`${process.env.VUE_APP_APIGATEWAY}Core/menu_detail/${id}`)
+      .then(response => {
+        return Promise.resolve(response)
+      })
+  }
+
+  menuPermission () {
+    return axios.get(`${process.env.VUE_APP_APIGATEWAY}Core/menu_permission`)
+      .then(response => {
+        return Promise.resolve(response)
+      })
+  }
+
   menuTreeEnd () {
     return axios.get(`${process.env.VUE_APP_APIGATEWAY}Core/menu_manager_treeend`)
       .then(response => {

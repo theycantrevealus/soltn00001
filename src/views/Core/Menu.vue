@@ -40,7 +40,7 @@
                   <Button @click="onNodeEdit(slotProps.node, 'Edit Child Menu')" type="button" class="p-button-info p-button-raised p-button-sm">
                     <span class="material-icons">edit</span>
                   </Button>
-                  <Button @click="onNodeDelete(slotProps.node.data.id)" type="button" class="p-button-danger p-button-raised p-button-sm">
+                  <Button @click="onNodeDelete($event, slotProps.node.data.id)" type="button" class="p-button-danger p-button-raised p-button-sm">
                     <span class="material-icons">delete</span>
                   </Button>
                   <Button type="button" class="p-button-success p-button-raised p-button-sm">
@@ -79,6 +79,32 @@
             <ToggleButton v-model="form.showMenu" onLabel="Show it!" offLabel="No, thanks" onIcon="pi pi-check" offIcon="pi pi-times" />
           </div>
         </div>
+        <div class="p-grid">
+          <div class="p-col-12">
+            <DataTable
+              :value="setterPermission"
+              dataKey="id"
+              responsiveLayout="scroll">
+              <template #header>
+                <div class="table-header-container">
+                  <Button class="p-button-info p-button-sm" @click="addFeatureForm">
+                    <span class="material-icons">add</span> Add Feature
+                  </Button>
+                </div>
+              </template>
+              <Column field="domiden" header="DOM" sortable>
+                <template #body="slotProps">
+                  {{ slotProps.data.domiden }}
+                </template>
+              </Column>
+              <Column field="dispatchname" header="Dispatch" sortable>
+                <template #body="slotProps">
+                  {{ slotProps.data.dispatchname }}
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+        </div>
         <template #footer>
           <Button @click="toggleModal" class="p-button-text p-button-sm">
             <span class="material-icons">highlight_off</span> Cancel
@@ -88,8 +114,28 @@
           </Button>
         </template>
       </Dialog>
-
+      <Dialog :modal="true" :header="ui.modal.manageFeature.title" v-model:visible="ui.modal.manageFeature.state" :position="ui.modal.manageFeature.position" :style="{width: '50vw'}">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-12">
+            <label for="manageFeatureDOM">DOM Identity <code>(class)</code></label>
+            <InputText id="manageFeatureDOM" type="text" v-model="form.feature.dom" />
+          </div>
+          <div class="p-field p-col-12 p-md-12">
+            <label for="manageFeatureDispatch">Dispatch Command</label>
+            <InputText id="manageFeatureDispatch" type="text" v-model="form.feature.dispatch" />
+          </div>
+        </div>
+        <template #footer>
+          <Button @click="toggleFeature" class="p-button-text p-button-sm">
+            <span class="material-icons">highlight_off</span> Cancel
+          </Button>
+          <Button class="p-button-sm" @click="processFeature" autofocus>
+            <span class="material-icons">task_alt</span> Add Feature
+          </Button>
+        </template>
+      </Dialog>
       <Toast />
+      <ConfirmPopup></ConfirmPopup>
     </div>
   </div>
 </template>
@@ -104,28 +150,45 @@ import Dialog from 'primevue/dialog'
 import Toast from 'primevue/toast'
 import InputText from 'primevue/inputtext'
 import ToggleButton from 'primevue/togglebutton'
+import DataTable from 'primevue/datatable'
+import ConfirmPopup from 'primevue/confirmpopup'
+
 import { mapActions, mapGetters } from 'vuex'
 import CoreService from '@/service/core/menu'
 
 export default defineComponent({
   name: 'Module',
   components: {
-    Card, TreeTable, Column, Button, InputText, Dialog, ToggleButton, Toast
+    Card, TreeTable, Column, Button, InputText, Dialog, ToggleButton, Toast, DataTable, ConfirmPopup
   },
   data () {
     return {
       formMode: 'add',
+      setterPermission: Array<{
+        domiden: string,
+        dispatchname: string
+      }>(),
       form: {
         targetGroup: 0,
         targetID: 0,
         txt_label: '',
         txt_route: '',
         txt_icon: '',
-        showMenu: false
+        showMenu: false,
+        showFeature: false,
+        feature: {
+          dom: '',
+          dispatch: ''
+        }
       },
       ui: {
         modal: {
           manageMenu: {
+            state: false,
+            position: 'top',
+            title: ''
+          },
+          manageFeature: {
             state: false,
             position: 'top',
             title: ''
@@ -165,7 +228,12 @@ export default defineComponent({
         txt_label: '',
         txt_route: '',
         txt_icon: '',
-        showMenu: false
+        showMenu: false,
+        showFeature: false,
+        feature: {
+          dom: '',
+          dispatch: ''
+        }
       }
     },
     reloadMenu () {
@@ -176,16 +244,32 @@ export default defineComponent({
     toggleModal () {
       this.ui.modal.manageMenu.state = !this.ui.modal.manageMenu.state
     },
-    onNodeDelete (target: Number) {
-      return CoreService.menuDelete({
-        request: 'menu',
-        id: target
-      }).then((response: any) => {
-        response = response.data.response_package
-        if (response.response_result > 0) {
-          this.$toast.add({ severity: 'success', summary: 'Menu Manager', detail: response.response_message, life: 3000 })
-          this.reloadMenu()
-          this.rebuildMenu()
+    toggleFeature () {
+      this.ui.modal.manageFeature.state = !this.ui.modal.manageFeature.state
+    },
+    onNodeDelete (event, target: Number) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: 'Are you sure to delete this menu?',
+        icon: 'pi pi-exclamation-triangle',
+        acceptClass: 'p-button-danger',
+        acceptLabel: 'Yes. Delete it!',
+        rejectLabel: 'Cancel',
+        accept: () => {
+          return CoreService.menuDelete({
+            request: 'menu',
+            id: target
+          }).then((response: any) => {
+            response = response.data.response_package
+            if (response.response_result > 0) {
+              this.$toast.add({ severity: 'success', summary: 'Menu Manager', detail: response.response_message, life: 3000 })
+              this.reloadMenu()
+              this.rebuildMenu()
+            }
+          })
+        },
+        reject: () => {
+          // callback to execute when user rejects the action
         }
       })
     },
@@ -198,9 +282,16 @@ export default defineComponent({
       this.form.showMenu = (target.show_on_menu === 'Y')
       this.formMode = 'edit'
       this.ui.modal.manageMenu.title = `${mode}  ${data.label}`
+      CoreService.menuDetail(data.id).then(response => {
+        const dataSelected = response.data.response_package.response_data[0]
+        if (dataSelected.permission !== null) {
+          this.setterPermission = dataSelected.permission
+        }
+      })
       this.toggleModal()
     },
     onNodeAdd (target:any, mode: string) {
+      this.clearForm()
       const checkLevel = target.key.split('-')
       this.formMode = 'add'
       if (checkLevel.length > 1) {
@@ -213,6 +304,10 @@ export default defineComponent({
 
       this.ui.modal.manageMenu.title = `${mode}  ${target.label}`
       this.toggleModal()
+    },
+    addFeatureForm () {
+      this.ui.modal.manageFeature.title = 'Feature'
+      this.toggleFeature()
     },
     editMenu () {
       const label = this.form.txt_label
@@ -228,11 +323,10 @@ export default defineComponent({
         targetLink: routeTo,
         remark: '',
         parent: this.form.targetID,
+        setterPermission: this.setterPermission,
         icon: icon,
         showOnMenu: showMenu
       }).then((response: any) => {
-        console.clear()
-        console.log(response)
         response = response.data.response_package
         if (response.response_result > 0) {
           this.reloadMenu()
@@ -250,6 +344,22 @@ export default defineComponent({
         this.editMenu()
       }
     },
+    autoFeature (featureData) {
+      this.setterPermission.push(featureData)
+    },
+    processFeature () {
+      this.autoFeature({
+        domiden: this.form.feature.dom,
+        dispatchname: this.form.feature.dispatch
+      })
+
+      this.form.feature = {
+        dom: '',
+        dispatch: ''
+      }
+
+      this.toggleFeature()
+    },
     addMenu () {
       const label = this.form.txt_label
       const routeTo = this.form.txt_route
@@ -263,6 +373,7 @@ export default defineComponent({
         targetLink: routeTo,
         remark: '',
         parent: this.form.targetID,
+        setterPermission: this.setterPermission,
         icon: icon,
         showOnMenu: showMenu
       }).then((response: any) => {

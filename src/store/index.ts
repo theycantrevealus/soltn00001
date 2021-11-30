@@ -15,6 +15,7 @@ const store = createStore({
     credential: {
       first_name: '',
       last_name: '',
+      permission: {},
       token: null
     },
     sidemenu: []
@@ -64,6 +65,16 @@ const store = createStore({
     LOGIN_SUCCESS (state:any, credentialData) {
       state.credential.first_name = credentialData.first_name
       state.credential.last_name = credentialData.last_name
+      const grantedPage = credentialData.roleandperm
+      const buildPermission = {}
+      for (const a in grantedPage) {
+        if (buildPermission[grantedPage[a].detail.domiden]) {
+          buildPermission[grantedPage[a].detail.domiden] = ''
+        }
+
+        buildPermission[grantedPage[a].detail.domiden] = grantedPage[a].detail.dispatchname
+      }
+      state.credential.permission = buildPermission
     },
     CLEAR_SESSION (state: any) {
       state.credential.token = null
